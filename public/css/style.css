@@ -165,7 +165,8 @@ ul { list-style: none; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 900;
-  height: var(--nav-h);
+  height: auto;
+  min-height: 90px;
   background: rgba(15,15,15,0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
