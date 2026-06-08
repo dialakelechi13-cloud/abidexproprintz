@@ -1114,7 +1114,7 @@ ul { list-style: none; }
 }
 
 @media (max-width: 768px) {
-  :root { --nav-h: 64px; }
+  :root { --nav-h: 80px; }
 
   .nav-links {
     position: fixed;
