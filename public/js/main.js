@@ -256,8 +256,8 @@ function initContactForm() {
         message: data.details || "None",
       });
       msgEl.textContent = "✅ Message sent! We'll be in touch within 24 hours.";
-        msgEl.className = "form-message success";
-        form.reset();
+      msgEl.className = "form-message success";
+      form.reset();
         // Also offer WhatsApp
         setTimeout(() => {
           const msg = `Hi! I just sent a quote request for ${data.service || "print services"} via your website. My name is ${data.name}.`;
