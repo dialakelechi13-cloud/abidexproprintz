@@ -3,7 +3,10 @@
    ═══════════════════════════════════════════════════════ */
 
 // ── Config (update these) ────────────────────────────────
-const WHATSAPP_NUMBER = "2347060927528"; // Change to real number (no +)
+const WHATSAPP_NUMBER = "2347060927528";
+const EMAILJS_SERVICE_ID = "service_uiqfcod";
+const EMAILJS_TEMPLATE_ID = "template_mnvcnh8";
+const EMAILJS_PUBLIC_KEY = "v6yM1_easETvBWAZz"; // Change to real number (no +)
 
 // ── Helpers ──────────────────────────────────────────────
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
@@ -242,15 +245,17 @@ function initContactForm() {
     const data = Object.fromEntries(new FormData(form).entries());
 
     try {
-      const res = await fetch("https://abidexproprintz.onrender.com/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+      await emailjs.init(EMAILJS_PUBLIC_KEY);
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name: data.name,
+        from_email: data.email,
+        phone: data.phone || "Not provided",
+        service: data.service,
+        quantity: data.quantity || "Not specified",
+        budget: data.budget || "Not specified",
+        message: data.details || "None",
       });
-      const json = await res.json();
-
-      if (json.success) {
-        msgEl.textContent = "✅ " + json.message;
+      msgEl.textContent = "✅ Message sent! We'll be in touch within 24 hours.";
         msgEl.className = "form-message success";
         form.reset();
         // Also offer WhatsApp
