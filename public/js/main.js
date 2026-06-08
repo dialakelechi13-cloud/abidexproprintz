@@ -2,11 +2,11 @@
    ABIDEXPRO PRINTZ — main.js
    ═══════════════════════════════════════════════════════ */
 
-// ── Config (update these) ────────────────────────────────
+// ── Config ───────────────────────────────────────────────
 const WHATSAPP_NUMBER = "2347060927528";
 const EMAILJS_SERVICE_ID = "service_uiqfcod";
 const EMAILJS_TEMPLATE_ID = "template_mnvcnh8";
-const EMAILJS_PUBLIC_KEY = "v6yM1_easETvBWAZz"; // Change to real number (no +)
+const EMAILJS_PUBLIC_KEY = "v6yM1_easETvBWAZz";
 
 // ── Helpers ──────────────────────────────────────────────
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
@@ -42,25 +42,22 @@ function initWhatsApp() {
 
 // ── Navigation ───────────────────────────────────────────
 function initNav() {
-  const header   = $("#header");
+  const header = $("#header");
   const hamburger = $("#hamburger");
-  const navLinks  = $("#navLinks");
+  const navLinks = $("#navLinks");
 
-  // Scroll effect
   const onScroll = () => {
     header.classList.toggle("scrolled", window.scrollY > 60);
   };
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  // Mobile toggle
   hamburger.addEventListener("click", () => {
     const open = navLinks.classList.toggle("open");
     hamburger.classList.toggle("open", open);
     hamburger.setAttribute("aria-expanded", open);
   });
 
-  // Close on link click
   $$(".nav-links a").forEach(a => {
     a.addEventListener("click", () => {
       navLinks.classList.remove("open");
@@ -69,7 +66,6 @@ function initNav() {
     });
   });
 
-  // Active link on scroll
   const sections = $$("section[id]");
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -85,12 +81,15 @@ function initNav() {
 
 // ── Portfolio filter ──────────────────────────────────────
 function initPortfolioFilter() {
-  const btns  = $$(".filter-btn");
+  const btns = $$(".filter-btn");
   const items = $$(".portfolio-item");
 
   btns.forEach(btn => {
     btn.addEventListener("click", () => {
-      btns.forEach(b => { b.classList.remove("active"); b.setAttribute("aria-selected", "false"); });
+      btns.forEach(b => {
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
+      });
       btn.classList.add("active");
       btn.setAttribute("aria-selected", "true");
 
@@ -98,7 +97,6 @@ function initPortfolioFilter() {
       items.forEach(item => {
         const show = filter === "all" || item.dataset.cat === filter;
         item.classList.toggle("hidden", !show);
-        // animate in
         if (show) {
           item.style.animation = "none";
           requestAnimationFrame(() => {
@@ -109,7 +107,6 @@ function initPortfolioFilter() {
     });
   });
 
-  // Add keyframe dynamically if not in CSS
   if (!document.getElementById("dynamicStyles")) {
     const style = document.createElement("style");
     style.id = "dynamicStyles";
@@ -131,7 +128,6 @@ async function loadBlog() {
     const posts = await res.json();
     renderBlog(posts, grid);
   } catch {
-    // Fallback: render static placeholder cards
     grid.innerHTML = renderBlogFallback();
   }
 }
@@ -156,7 +152,6 @@ function renderBlog(posts, grid) {
     </article>
   `).join("");
 
-  // Click/keyboard to open modal
   $$(".blog-card[data-id]").forEach(card => {
     const open = () => openBlogModal(posts.find(p => p.id === card.dataset.id));
     card.addEventListener("click", open);
@@ -166,9 +161,9 @@ function renderBlog(posts, grid) {
 
 function renderBlogFallback() {
   const posts = [
-    { icon: "🎨", cat: "Design Tips",   title: "5 Print Finishes That Make Your Brand Unforgettable", excerpt: "From soft-touch lamination to UV spot varnish — the right finish takes your print from ordinary to premium.", date: "May 2025", time: "4 min read" },
-    { icon: "📖", cat: "Guides",        title: "How to Prepare Your File for Print", excerpt: "CMYK vs RGB, bleed, resolution — everything you need before sending your artwork to the printer.", date: "Apr 2025", time: "6 min read" },
-    { icon: "📣", cat: "Marketing",     title: "Branded Merch That Actually Gets Used", excerpt: "The psychology behind branded merchandise people keep — and the ones that end up in the bin.", date: "Mar 2025", time: "5 min read" },
+    { icon: "🎨", cat: "Design Tips", title: "5 Print Finishes That Make Your Brand Unforgettable", excerpt: "From soft-touch lamination to UV spot varnish — the right finish takes your print from ordinary to premium.", date: "May 2025", time: "4 min read" },
+    { icon: "📖", cat: "Guides", title: "How to Prepare Your File for Print", excerpt: "CMYK vs RGB, bleed, resolution — everything you need before sending your artwork to the printer.", date: "Apr 2025", time: "6 min read" },
+    { icon: "📣", cat: "Marketing", title: "Branded Merch That Actually Gets Used", excerpt: "The psychology behind branded merchandise people keep — and the ones that end up in the bin.", date: "Mar 2025", time: "5 min read" },
   ];
   return posts.map(p => `
     <article class="blog-card fade-in-up">
@@ -211,7 +206,9 @@ function openBlogModal(post) {
   const close = () => { overlay.remove(); document.body.style.overflow = ""; };
   $(".blog-modal-close", overlay).addEventListener("click", close);
   overlay.addEventListener("click", e => { if (e.target === overlay) close(); });
-  document.addEventListener("keydown", function esc(e) { if (e.key === "Escape") { close(); document.removeEventListener("keydown", esc); } });
+  document.addEventListener("keydown", function esc(e) {
+    if (e.key === "Escape") { close(); document.removeEventListener("keydown", esc); }
+  });
 
   document.body.appendChild(overlay);
   document.body.style.overflow = "hidden";
@@ -220,14 +217,16 @@ function openBlogModal(post) {
 function formatDate(dateStr) {
   try {
     return new Date(dateStr).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" });
-  } catch { return dateStr; }
+  } catch {
+    return dateStr;
+  }
 }
 
 // ── Contact form ──────────────────────────────────────────
 function initContactForm() {
-  const form      = $("#orderForm");
+  const form = $("#orderForm");
   const submitBtn = $("#submitBtn");
-  const msgEl     = $("#formMessage");
+  const msgEl = $("#formMessage");
   if (!form) return;
 
   form.addEventListener("submit", async (e) => {
@@ -235,7 +234,6 @@ function initContactForm() {
 
     if (!validateForm(form)) return;
 
-    // Loading state
     submitBtn.disabled = true;
     $(".btn-text", submitBtn).textContent = "Sending…";
     $(".btn-spinner", submitBtn).hidden = false;
@@ -255,25 +253,25 @@ function initContactForm() {
         budget: data.budget || "Not specified",
         message: data.details || "None",
       });
+
       msgEl.textContent = "✅ Message sent! We'll be in touch within 24 hours.";
       msgEl.className = "form-message success";
       form.reset();
-        // Also offer WhatsApp
-        setTimeout(() => {
-          const msg = `Hi! I just sent a quote request for ${data.service || "print services"} via your website. My name is ${data.name}.`;
-          const wpLink = document.createElement("a");
-          wpLink.href = wa(msg);
-          wpLink.target = "_blank";
-          wpLink.rel = "noopener noreferrer";
-          wpLink.textContent = " Or chat on WhatsApp →";
-          wpLink.style.cssText = "color:#25d366;font-weight:600;display:block;margin-top:0.4rem;";
-          msgEl.appendChild(wpLink);
-        }, 500);
-      } else {
-        throw new Error(json.message);
-      }
+
+      setTimeout(() => {
+        const msg = `Hi! I just sent a quote request for ${data.service || "print services"} via your website. My name is ${data.name}.`;
+        const wpLink = document.createElement("a");
+        wpLink.href = wa(msg);
+        wpLink.target = "_blank";
+        wpLink.rel = "noopener noreferrer";
+        wpLink.textContent = " Or chat on WhatsApp →";
+        wpLink.style.cssText = "color:#25d366;font-weight:600;display:block;margin-top:0.4rem;";
+        msgEl.appendChild(wpLink);
+      }, 500);
+
     } catch (err) {
-      msgEl.textContent = "❌ " + (err.message || "Something went wrong. Please try WhatsApp.");
+      console.error("EmailJS error:", err);
+      msgEl.textContent = "❌ Failed to send. Please try WhatsApp instead.";
       msgEl.className = "form-message error";
     } finally {
       submitBtn.disabled = false;
@@ -303,7 +301,6 @@ function validateForm(form) {
     valid = false;
   }
 
-  // Remove error on input
   $$("[required], #email", form).forEach(el => {
     el.addEventListener("input", () => el.classList.remove("error"), { once: true });
   });
