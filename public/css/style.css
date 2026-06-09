@@ -1144,6 +1144,8 @@ ul { list-style: none; }
 
   .hamburger { display: flex; }
 
+  .logo img { height: 45px !important; width: auto !important; }
+
   .section { padding: 4rem 0; }
 
   .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
