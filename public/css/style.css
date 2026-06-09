@@ -1113,7 +1113,7 @@ ul { list-style: none; }
 }
 
 @media (max-width: 768px) {
-  :root { --nav-h: 80px; }
+  :root { --nav-h: 110px; }
 
   .nav-cta { display: none !important; }
   .nav-inner { padding: 0 1rem; }
