@@ -234,6 +234,9 @@ function initContactForm() {
 
     if (!validateForm(form)) return;
 
+    // Honeypot check — if filled, it's a bot
+    if (document.getElementById("honeypot").value) return;
+
     submitBtn.disabled = true;
     $(".btn-text", submitBtn).textContent = "Sending…";
     $(".btn-spinner", submitBtn).hidden = false;
