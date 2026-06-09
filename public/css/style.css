@@ -1117,6 +1117,12 @@ ul { list-style: none; }
 @media (max-width: 768px) {
   :root { --nav-h: 80px; }
 
+  .nav-cta { display: none !important; }
+  .nav-inner { padding: 0 1rem; }
+
+  .nav-cta { display: none !important; }
+  .nav-inner { padding: 0 1rem; }
+
   .nav-links {
     position: fixed;
     top: var(--nav-h);
