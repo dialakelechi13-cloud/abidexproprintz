@@ -360,7 +360,7 @@ ul { list-style: none; }
 
 .hero-sub {
   font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-  color: rgba(255,255,255,0.90);
+  color: #ffffff;
   max-width: 600px;
   margin-bottom: 2.5rem;
   font-weight: 500;
