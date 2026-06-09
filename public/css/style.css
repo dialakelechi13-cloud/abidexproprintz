@@ -272,7 +272,7 @@ ul { list-style: none; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: calc(var(--nav-h) + 2rem);
+  padding-top: var(--nav-h);
   position: relative;
   overflow: hidden;
 }
@@ -355,7 +355,14 @@ ul { list-style: none; }
   color: var(--gold);
   position: relative;
 }
-
+.hero-ink::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 0; right: 0;
+  height: 6px;
+  background: var(--green);
+  opacity: 0.5;
+  border-radius: 2px;
 }
 
 .hero-sub {
@@ -1137,8 +1144,6 @@ ul { list-style: none; }
   .nav-cta { display: none !important; }
 
   .hamburger { display: flex; }
-
-  .logo img { height: 60px !important; width: auto !important; }
 
   .section { padding: 4rem 0; }
 
