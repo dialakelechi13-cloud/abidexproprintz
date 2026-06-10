@@ -410,7 +410,10 @@ ul { list-style: none; }
 /* ══════════════════════════════════════════════════════════
    SERVICES
    ══════════════════════════════════════════════════════════ */
-.services { background: var(--cream); }
+.services { background: var(--ink); }
+
+.services .section-header h2 { color: var(--white); }
+.services .section-tag { background: rgba(201,168,76,0.15); }
 
 .services-grid {
   display: grid;
@@ -419,8 +422,8 @@ ul { list-style: none; }
 }
 
 .service-card {
-  background: var(--white);
-  border: 1px solid var(--grey-light);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--radius-lg);
   padding: 2rem;
   position: relative;
@@ -434,43 +437,57 @@ ul { list-style: none; }
   top: 1.25rem; right: 1.25rem;
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  color: var(--grey-light);
+  color: rgba(255,255,255,0.15);
   letter-spacing: 0.1em;
 }
 
-.service-card:hover {
-  border-color: var(--green);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+.service-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  opacity: 0;
+  transition: var(--transition);
 }
 
+.service-card:hover {
+  border-color: rgba(201,168,76,0.4);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(201,168,76,0.08);
+  background: rgba(255,255,255,0.05);
+}
+
+.service-card:hover::after { opacity: 1; }
+
 .service-card.featured {
-  background: var(--green);
-  border-color: var(--green);
+  background: linear-gradient(135deg, rgba(201,168,76,0.15) 0%, rgba(201,168,76,0.05) 100%);
+  border-color: rgba(201,168,76,0.4);
   color: var(--white);
   grid-row: span 1;
 }
-.service-card.featured h3,
-.service-card.featured p { color: rgba(255,255,255,0.95); }
-.service-card.featured .service-link { color: var(--gold-light); }
-.service-card.featured::before { color: rgba(255,255,255,0.2); }
+.service-card.featured h3 { color: var(--gold); }
+.service-card.featured p { color: rgba(255,255,255,0.75); }
+.service-card.featured .service-link { color: var(--gold); }
+.service-card.featured::before { color: rgba(201,168,76,0.3); }
+.service-card.featured::after { opacity: 1; background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
 
 .service-icon {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 2.2rem;
+  margin-bottom: 1.25rem;
   display: block;
 }
 
-.service-card h3 { margin-bottom: 0.65rem; }
-.service-card p { color: var(--grey-mid); font-size: 0.95rem; margin-bottom: 1.25rem; }
+.service-card h3 { margin-bottom: 0.65rem; color: var(--white); }
+.service-card p { color: rgba(255,255,255,0.55); font-size: 0.95rem; margin-bottom: 1.25rem; }
 
 .service-link {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--green);
+  color: var(--gold);
   transition: var(--transition);
 }
-.service-link:hover { letter-spacing: 0.02em; }
+.service-link:hover { letter-spacing: 0.05em; }
 
 /* ══════════════════════════════════════════════════════════
    PORTFOLIO
@@ -1113,6 +1130,46 @@ ul { list-style: none; }
 .fade-in-up.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Service card shimmer animation */
+.service-card .shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(201,168,76,0.06) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+  pointer-events: none;
+  border-radius: var(--radius-lg);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Stagger service cards */
+.service-card:nth-child(1) { transition-delay: 0.05s; }
+.service-card:nth-child(2) { transition-delay: 0.1s; }
+.service-card:nth-child(3) { transition-delay: 0.15s; }
+.service-card:nth-child(4) { transition-delay: 0.2s; }
+.service-card:nth-child(5) { transition-delay: 0.25s; }
+.service-card:nth-child(6) { transition-delay: 0.3s; }
+
+/* Pulse animation on service icon */
+.service-card:hover .service-icon {
+  animation: iconPulse 0.4s ease;
+}
+
+@keyframes iconPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
 
 /* ══════════════════════════════════════════════════════════
