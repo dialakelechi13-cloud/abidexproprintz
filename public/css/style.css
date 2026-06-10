@@ -1161,6 +1161,20 @@ ul { list-style: none; }
 .service-card:nth-child(5) { transition-delay: 0.25s; }
 .service-card:nth-child(6) { transition-delay: 0.3s; }
 
+/* Mobile touch effect */
+@media (hover: none) {
+  .service-card:active {
+    border-color: rgba(201,168,76,0.6);
+    transform: scale(0.98);
+    background: rgba(201,168,76,0.08);
+    box-shadow: 0 0 20px rgba(201,168,76,0.2);
+  }
+  .service-card:active::after { opacity: 1; }
+  .service-card:active .service-icon {
+    animation: iconPulse 0.3s ease;
+  }
+}
+
 /* Pulse animation on service icon */
 .service-card:hover .service-icon {
   animation: iconPulse 0.4s ease;
