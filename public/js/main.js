@@ -32,7 +32,8 @@ window.onload = function() {
       var quantity = document.getElementById("quantity").value.trim();
       var details = document.getElementById("details").value.trim();
       var budget = document.getElementById("budget").value.trim();
-      var honeypot = document.getElementById("honeypot").value;
+      var honeypotEl = document.getElementById("honeypot");
+      var honeypot = honeypotEl ? honeypotEl.value : "";
       var msgEl = document.getElementById("formMessage");
       var submitBtn = document.getElementById("submitBtn");
 
