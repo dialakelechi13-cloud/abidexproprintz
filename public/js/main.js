@@ -38,6 +38,18 @@ window.onload = function() {
       // Honeypot
       if (honeypot) return false;
 
+      alert("JS is running! Name: " + name + " Service: " + service);
+
+      alert("JS is running! Name: " + name + " Service: " + service);
+
+      alert("JS is running! Name: " + name + " Service: " + service);
+
+      alert("JS is running! Name: " + name + " Service: " + service);
+
+      alert("JS is running! Name: " + name + " Service: " + service);
+
+      alert("JS is running! Name: " + name + " Service: " + service);
+
       // Validate
       if (!name || !email || !service) {
         msgEl.textContent = "Please fill in your name, email and service.";
