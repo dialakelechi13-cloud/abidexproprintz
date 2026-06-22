@@ -112,7 +112,7 @@ window.onload = function() {
     if (btnText) btnText.textContent = "Sending…";
     if (msgEl) { msgEl.textContent = ""; msgEl.className = "form-message"; }
 
-    emailjs.init(EMAILJS_PUBLIC_KEY);
+    emailjs.init({publicKey: EMAILJS_PUBLIC_KEY});
     emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
       from_name: name,
       from_email: email,
