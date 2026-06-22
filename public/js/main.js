@@ -198,7 +198,7 @@ function openBlogModal(post) {
           <div class="blog-meta" style="margin-top:0.5rem">${formatDate(post.date)} · ${post.readTime}</div>
         </div>
         <button class="blog-modal-close" aria-label="Close">✕</button>
-      </div>
+   eypot   </div>
       <div class="blog-modal-content">${post.content}</div>
     </div>
   `;
@@ -229,10 +229,10 @@ function initContactForm() {
   const msgEl = $("#formMessage");
   if (!form) return;
 
-  form.addEventListener("submit", async (e) => {
+  form.addEventListener("submit", async (e) => 
     e.preventDefault();
 
-    if (!validateForm(form)) return;
+    if (!validateForm(form)) { alert("Validation failed"); return; }
 
     // Honeypot check — if filled, it's a bot
     if (document.getElementById("honeypot").value) return;
