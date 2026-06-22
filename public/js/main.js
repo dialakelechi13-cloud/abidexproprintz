@@ -23,6 +23,7 @@ window.onload = function() {
     form.onsubmit = function(e) {
       e.preventDefault();
       e.stopPropagation();
+      alert("Form submitted!");
 
       var name = document.getElementById("name").value.trim();
       var email = document.getElementById("email").value.trim();
