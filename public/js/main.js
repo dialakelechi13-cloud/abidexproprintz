@@ -24,6 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollAnimations();
 });
 
+// Fallback in case DOMContentLoaded already fired
+if (document.readyState === "complete" || document.readyState === "interactive") {
+  initContactForm();
+}
+
 // ── Year ─────────────────────────────────────────────────
 function setYear() {
   const el = $("#year");
