@@ -6,7 +6,7 @@
 const WHATSAPP_NUMBER = "2347060927528";
 const EMAILJS_SERVICE_ID = "service_uiqfcod";
 const EMAILJS_TEMPLATE_ID = "template_mnvcnh8";
-const EMAILJS_PUBLIC_KEY = "v6yM1_easETvBWAZz";
+const EMAILJS_PUBLIC_KEY = "LK3UyxCI0LcJXU1NS9avQ";
 
 // ── Helpers ──────────────────────────────────────────────
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
