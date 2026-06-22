@@ -125,8 +125,8 @@ window.onload = function() {
       if (msgEl) { msgEl.textContent = "✅ Message sent! We'll be in touch within 24 hours."; msgEl.className = "form-message success"; }
       form.reset();
     }).catch(function(err) {
-      console.error("EmailJS error:", JSON.stringify(err));
-      if (msgEl) { msgEl.textContent = "❌ Failed to send. Please try WhatsApp instead."; msgEl.className = "form-message error"; }
+      var errMsg = JSON.stringify(err) || err.text || err.message || "Unknown error";
+      if (msgEl) { msgEl.textContent = "❌ Error: " + errMsg; msgEl.className = "form-message error"; }
     }).finally(function() {
       if (submitBtn) submitBtn.disabled = false;
       if (btnText) btnText.textContent = "Send Request";
