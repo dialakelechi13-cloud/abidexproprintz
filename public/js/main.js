@@ -35,10 +35,7 @@ window.onload = function() {
       var msgEl = document.getElementById("formMessage");
       var submitBtn = document.getElementById("submitBtn");
 
-      // Honeypot
-      if (honeypot) return false;
-
-      alert("JS is running! Name: " + name + " Service: " + service);
+      // Skip honeypot on mobile
 
       alert("JS is running! Name: " + name + " Service: " + service);
 
