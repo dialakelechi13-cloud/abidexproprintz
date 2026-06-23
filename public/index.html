@@ -451,7 +451,7 @@
         </div>
 
         <div class="contact-form-wrap">
-          onsubmit="return false">
+          <form id="orderForm" class="order-form" novalidate>
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Your Name *</label>
@@ -565,18 +565,6 @@
 
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    // Extra safety - init form after everything loads
-    window.addEventListener("load", function() {
-      var form = document.getElementById("orderForm");
-      if (form && !form._bound) {
-        form._bound = true;
-        form.addEventListener("submit", function(e) {
-          e.preventDefault();
-          alert("Extra handler: " + document.getElementById("name").value);
-        });
-      }
-    });
-  </script>
+  
 </body>
 </html>
