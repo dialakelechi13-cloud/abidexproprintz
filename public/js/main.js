@@ -3,7 +3,7 @@
 var WHATSAPP_NUMBER = "2347060927528";
 var EMAILJS_SERVICE_ID = "service_uiqfcod";
 var EMAILJS_TEMPLATE_ID = "template_mnvcnh8";
-var EMAILJS_PUBLIC_KEY = "LK3UyxCI0LcJXU1NS9avQ";
+var EMAILJS_PUBLIC_KEY = "v6yM1_easETvBWAZz";
 
 window.onload = function() {
 
