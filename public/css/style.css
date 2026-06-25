@@ -694,6 +694,54 @@ ul { list-style: none; }
 /* ══════════════════════════════════════════════════════════
    ABOUT
    ══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════
+   HOW IT WORKS
+   ══════════════════════════════════════════════════════════ */
+.process { background: var(--cream); }
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.process-step {
+  background: var(--white);
+  border: 1px solid var(--grey-light);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  position: relative;
+  transition: var(--transition);
+}
+
+.process-step:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--gold);
+}
+
+.process-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.process-step h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.65rem;
+  color: var(--ink);
+}
+
+.process-step p {
+  color: var(--grey-mid);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
 .about { background: var(--ink); }
 
 .about .section-tag { background: rgba(201,168,76,0.15); }
@@ -1504,6 +1552,7 @@ ul { list-style: none; }
   .pricing-grid  { grid-template-columns: repeat(2, 1fr); }
   .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
   .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .about-inner { gap: 3rem; }
 }
@@ -1547,6 +1596,7 @@ ul { list-style: none; }
   .services-grid { grid-template-columns: 1fr; }
   .portfolio-grid { grid-template-columns: 1fr; }
   .pricing-grid { grid-template-columns: 1fr; }
+  .process-grid { grid-template-columns: 1fr; }
 
   .footer-inner { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem 2rem; }
 }
