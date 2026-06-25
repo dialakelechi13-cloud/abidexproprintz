@@ -39,6 +39,41 @@ window.onload = function() {
     });
   }
 
+  // Service detail popups
+  var serviceDetails = {
+    "Business Cards": { icon: "🖊", content: "<p>Your business card is often the first physical impression of your brand. We make it count.</p><h3>What's Included</h3><p>Double-sided full-colour printing on premium 350gsm stock, precision cutting, and your choice of finish. Standard size 85 x 54mm, or custom sizes on request.</p><h3>Finishes Available</h3><p>Matte lamination, gloss lamination, soft-touch velvet, spot UV, gold/silver foil, embossing, and rounded corners. Mix and match to create something memorable.</p><h3>Turnaround</h3><p>Standard 3-day turnaround, with express options available for urgent orders. Minimum order 100 units.</p>" },
+    "Flyers & Brochures": { icon: "📄", content: "<p>High-impact marketing materials that get your message into customers' hands.</p><h3>What's Included</h3><p>Full-colour printing on quality 130gsm or 170gsm stock. Available in A4, A5, A6, and DL sizes. Single sheets or folded brochures (bi-fold, tri-fold, gate-fold).</p><h3>Perfect For</h3><p>Event promotion, product catalogues, menus, corporate presentations, and promotional campaigns. Bulk discounts available for large runs.</p><h3>Turnaround</h3><p>2-day standard turnaround. Design service available if you need artwork created.</p>" },
+    "Banners & Signage": { icon: "🏗", content: "<p>Large format printing that makes your brand impossible to miss.</p><h3>What's Included</h3><p>Roll-up banners (2400mm x 800mm) complete with stand and carry bag, flex banners for outdoor use, X-stands, and event backdrops. Weather-resistant materials for durability.</p><h3>Perfect For</h3><p>Trade shows, store fronts, events, conferences, and outdoor advertising. Built to withstand Lagos weather.</p><h3>Turnaround</h3><p>48-hour express turnaround available. Includes free design consultation to maximise visibility.</p>" },
+    "Branded Merchandise": { icon: "👕", content: "<p>Turn everyday items into walking advertisements for your brand.</p><h3>What's Included</h3><p>Custom T-shirts and hoodies (200-250gsm cotton), tote bags, mugs, caps, pens, and corporate gift items. Screen printing, DTG, and embroidery options.</p><h3>Perfect For</h3><p>Staff uniforms, event giveaways, corporate gifts, and promotional campaigns. Minimum order 10 units for apparel.</p><h3>Sizing</h3><p>Apparel available in sizes XS to 3XL. We can produce samples before full production runs.</p>" },
+    "Packaging & Labels": { icon: "📦", content: "<p>Packaging that protects your product and elevates your brand.</p><h3>What's Included</h3><p>Custom boxes, product labels, stickers, hang tags, and wrapping. Available with premium finishes like spot UV and foil for a luxury feel.</p><h3>Perfect For</h3><p>Product brands, food and beverage businesses, cosmetics, and e-commerce shipping. Custom shapes and sizes available.</p><h3>Materials</h3><p>Durable card stock, waterproof label options, and eco-friendly recyclable materials.</p>" },
+    "Design Services": { icon: "🎨", content: "<p>No artwork? Our in-house designers bring your ideas to life.</p><h3>What's Included</h3><p>Logo design, business card design, flyer and brochure layout, banner design, and complete brand identity packages. All files delivered print-ready.</p><h3>How It Works</h3><p>Share your idea, references, and brand colours. We create initial concepts, refine based on your feedback, and prepare final print-ready files.</p><h3>Turnaround</h3><p>Design timelines vary by project complexity. Simple designs in 1-2 days, full brand packages in about a week.</p>" }
+  };
+
+  document.querySelectorAll(".service-card").forEach(function(card) {
+    var link = card.querySelector(".service-link");
+    if (link) {
+      link.addEventListener("click", function(e) {
+        e.preventDefault();
+        var title = card.querySelector("h3").textContent;
+        var detail = serviceDetails[title];
+        if (!detail) { window.location.hash = "#contact"; return; }
+        var overlay = document.createElement("div");
+        overlay.className = "blog-modal-overlay";
+        var modal = '<div class="blog-modal"><div class="blog-modal-header"><div>';
+        modal += '<span class="section-tag">Service</span>';
+        modal += '<h3 style="margin-top:0.5rem">' + detail.icon + ' ' + title + '</h3></div>';
+        modal += '<button class="blog-modal-close" aria-label="Close">&times;</button></div>';
+        modal += '<div class="blog-modal-content">' + detail.content + '<div style="margin-top:1.5rem;text-align:center;"><a href="#contact" class="btn btn-primary" onclick="document.querySelector(\'.blog-modal-overlay\').remove();document.body.style.overflow=\'\';">Get a Quote →</a></div></div></div>';
+        overlay.innerHTML = modal;
+        document.body.appendChild(overlay);
+        document.body.style.overflow = "hidden";
+        function closeModal() { overlay.remove(); document.body.style.overflow = ""; }
+        overlay.querySelector(".blog-modal-close").addEventListener("click", closeModal);
+        overlay.addEventListener("click", function(ev) { if (ev.target === overlay) closeModal(); });
+      });
+    }
+  });
+
   var filterBtns = document.querySelectorAll(".filter-btn");
   var portfolioItems = document.querySelectorAll(".portfolio-item");
   filterBtns.forEach(function(btn) {
