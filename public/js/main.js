@@ -61,11 +61,11 @@ window.onload = function() {
   var blogGrid = document.getElementById("blogGrid");
   if (blogGrid) {
     blogGrid.innerHTML = [
-      { icon:"🎨", cat:"Design Tips", title:"5 Print Finishes That Make Your Brand Unforgettable", excerpt:"From soft-touch lamination to UV spot varnish — the right finish takes your print from ordinary to premium.", date:"May 2025", time:"4 min read" },
-      { icon:"📖", cat:"Guides", title:"How to Prepare Your File for Print", excerpt:"CMYK vs RGB, bleed, resolution — everything you need before sending your artwork to the printer.", date:"Apr 2025", time:"6 min read" },
-      { icon:"📣", cat:"Marketing", title:"Branded Merch That Actually Gets Used", excerpt:"The psychology behind branded merchandise people keep — and the ones that end up in the bin.", date:"Mar 2025", time:"5 min read" }
+      { img:"https://images.unsplash.com/photo-1589998059171-988d887df646?w=600&q=80", cat:"Design Tips", title:"5 Print Finishes That Make Your Brand Unforgettable", excerpt:"From soft-touch lamination to UV spot varnish — the right finish takes your print from ordinary to premium.", date:"May 2025", time:"4 min read" },
+      { img:"https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80", cat:"Guides", title:"How to Prepare Your File for Print", excerpt:"CMYK vs RGB, bleed, resolution — everything you need before sending your artwork to the printer.", date:"Apr 2025", time:"6 min read" },
+      { img:"https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&q=80", cat:"Marketing", title:"Branded Merch That Actually Gets Used", excerpt:"The psychology behind branded merchandise people keep — and the ones that end up in the bin.", date:"Mar 2025", time:"5 min read" }
     ].map(function(p) {
-      return '<article class="blog-card fade-in-up"><div class="blog-thumb"><div class="blog-thumb-inner">'+p.icon+'</div><span class="blog-cat">'+p.cat+'</span></div><div class="blog-body"><div class="blog-meta"><span>'+p.date+'</span><span>·</span><span>'+p.time+'</span></div><h3>'+p.title+'</h3><p>'+p.excerpt+'</p><span class="blog-read-more">Read more →</span></div></article>';
+      return '<article class="blog-card fade-in-up"><div class="blog-thumb" style="background-image:url(\'' + p.img + '\');background-size:cover;background-position:center;"><span class="blog-cat">'+p.cat+'</span></div><div class="blog-body"><div class="blog-meta"><span>'+p.date+'</span><span>·</span><span>'+p.time+'</span></div><h3>'+p.title+'</h3><p>'+p.excerpt+'</p><span class="blog-read-more">Read more →</span></div></article>';
     }).join("");
   }
 
