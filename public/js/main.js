@@ -12,7 +12,7 @@ window.onload = function() {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // WhatsApp
-  var waMsg = "Hi Abidexpro Printz! I'd like to get a quote for my print project.";
+  var waMsg = "Hi Abidexpro Printz! I would like to get a quote for my print project.";
   var waUrl = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(waMsg);
   ["whatsappBtn","footerWhatsapp","floatingWa"].forEach(function(id) {
     var el = document.getElementById(id);
@@ -57,25 +57,72 @@ window.onload = function() {
     });
   });
 
-  // Blog fallback
+  // Blog
   var blogGrid = document.getElementById("blogGrid");
   if (blogGrid) {
     var blogPosts = [
-      { img:"https://images.unsplash.com/photo-1589998059171-988d887df646?w=600&q=80", cat:"Design Tips", title:"5 Print Finishes That Make Your Brand Unforgettable", excerpt:"From soft-touch lamination to UV spot varnish — the right finish takes your print from ordinary to premium.", date:"May 2025", time:"4 min read", content:"<p>When most people think about printing, they think about paper and colours. But experienced designers know the <em>finish</em> is what separates a forgettable flyer from something people actually keep.</p><h3>1. Soft-Touch Lamination</h3><p>Also called velvet lamination, this gives your print a smooth, matte feel that is almost fabric-like. It communicates luxury without saying a word. Perfect for business cards and brochures.</p><h3>2. UV Spot Varnish</h3><p>Apply gloss selectively — just on your logo for example — while the rest stays matte. The contrast grabs attention and creates a tactile surprise.</p><h3>3. Foil Stamping</h3><p>Gold, silver, rose gold, holographic — foil makes any design feel premium. Ideal for wedding stationery, certificates, and luxury packaging.</p><h3>4. Embossing &amp; Debossing</h3><p>Raise or sink elements into the paper for a 3D tactile effect. Often combined with foil for maximum impact.</p><h3>5. Aqueous Coating</h3><p>A water-based protective coating that is both durable and eco-friendly. Great for high-volume flyers and catalogues.</p><p><strong>Ready to upgrade your next print job?</strong> Chat with us on WhatsApp and let us pick the right finish for your brand.</p>" },
-      { img:"https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80", cat:"Guides", title:"How to Prepare Your File for Print", excerpt:"CMYK vs RGB, bleed, resolution — everything you need before sending your artwork to the printer.", date:"Apr 2025", time:"6 min read", content:"<p>Nothing kills a beautiful design faster than sending the wrong file to the printer. Here is a checklist we give every new client.</p><h3>CMYK, Not RGB</h3><p>Your screen uses RGB light. Printers use CMYK ink. Always convert your file to CMYK before sending — otherwise colours can shift dramatically.</p><h3>300 DPI Minimum</h3><p>Screen resolution (72 dpi) will print blurry. Set your document to at least 300 dpi from the start.</p><h3>Add Bleed</h3><p>Bleed is an extra 3mm around every edge. It ensures no white borders appear after trimming. Always extend your background into the bleed area.</p><h3>Outline Your Fonts</h3><p>If your printer does not have the same fonts, text will reflow. Convert all text to outlines before saving your final file.</p><h3>Preferred File Formats</h3><p>Press-ready PDF is the gold standard. AI and EPS also work well. Avoid JPEGs for anything needing precise colour matching.</p><p>Still unsure? Send us your file and we will check it for free before printing.</p>" },
-      { img:"https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&q=80", cat:"Marketing", title:"Branded Merch That Actually Gets Used", excerpt:"The psychology behind branded merchandise people keep — and the ones that end up in the bin.", date:"Mar 2025", time:"5 min read", content:"<p>Every year, businesses spend billions on branded merchandise that ends up in a bin. The ones that do not? They follow a simple rule: utility first.</p><h3>Give People Something They Will Use</h3><p>Tote bags, water bottles, notebooks — people keep things that serve a daily function. A beautifully printed notebook with your logo lives on a desk for months.</p><h3>Quality Signals Value</h3><p>A cheap, flimsy t-shirt with a cracked print communicates the opposite of what you intend. Invest in quality. People associate the quality of your merch with the quality of your service.</p><h3>Less Logo, More Personality</h3><p>The best branded merch feels like something people would choose to wear even without the brand. Use your brand colours and a subtle logo, not a giant billboard.</p><h3>Think About Your Audience</h3><p>A tech startup gifts AirPods cases. A food brand gifts aprons. Match the merch to the lifestyle of your customer.</p><p>We produce everything from custom tote bags to branded packaging — let us talk about what works for your brand.</p>" }
+      {
+        img: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=600&q=80",
+        cat: "Design Tips",
+        title: "5 Print Finishes That Make Your Brand Unforgettable",
+        excerpt: "From soft-touch lamination to UV spot varnish - the right finish takes your print from ordinary to premium.",
+        date: "May 2025",
+        time: "4 min read",
+        content: "<p>When most people think about printing, they think about paper and colours. But experienced designers know the finish is what separates a forgettable flyer from something people actually keep.</p><h3>1. Soft-Touch Lamination</h3><p>Also called velvet lamination, this gives your print a smooth, matte feel that is almost fabric-like. It communicates luxury without saying a word. Perfect for business cards and brochures.</p><h3>2. UV Spot Varnish</h3><p>Apply gloss selectively while the rest stays matte. The contrast grabs attention and creates a tactile surprise.</p><h3>3. Foil Stamping</h3><p>Gold, silver, rose gold, holographic - foil makes any design feel premium. Ideal for wedding stationery, certificates, and luxury packaging.</p><h3>4. Embossing and Debossing</h3><p>Raise or sink elements into the paper for a 3D tactile effect. Often combined with foil for maximum impact.</p><h3>5. Aqueous Coating</h3><p>A water-based protective coating that is both durable and eco-friendly. Great for high-volume flyers and catalogues.</p><p>Ready to upgrade your next print job? Chat with us on WhatsApp and let us pick the right finish for your brand.</p>"
+      },
+      {
+        img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80",
+        cat: "Guides",
+        title: "How to Prepare Your File for Print",
+        excerpt: "CMYK vs RGB, bleed, resolution - everything you need before sending your artwork to the printer.",
+        date: "Apr 2025",
+        time: "6 min read",
+        content: "<p>Nothing kills a beautiful design faster than sending the wrong file to the printer. Here is a checklist we give every new client.</p><h3>CMYK, Not RGB</h3><p>Your screen uses RGB light. Printers use CMYK ink. Always convert your file to CMYK before sending, otherwise colours can shift dramatically.</p><h3>300 DPI Minimum</h3><p>Screen resolution will print blurry. Set your document to at least 300 dpi from the start.</p><h3>Add Bleed</h3><p>Bleed is an extra 3mm around every edge. It ensures no white borders appear after trimming.</p><h3>Outline Your Fonts</h3><p>If your printer does not have the same fonts, text will reflow. Convert all text to outlines before saving.</p><h3>Preferred File Formats</h3><p>Press-ready PDF is the gold standard. AI and EPS also work well. Avoid JPEGs for precise colour work.</p><p>Still unsure? Send us your file and we will check it for free before printing.</p>"
+      },
+      {
+        img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&q=80",
+        cat: "Marketing",
+        title: "Branded Merch That Actually Gets Used",
+        excerpt: "The psychology behind branded merchandise people keep - and the ones that end up in the bin.",
+        date: "Mar 2025",
+        time: "5 min read",
+        content: "<p>Every year, businesses spend billions on branded merchandise that ends up in a bin. The ones that do not follow a simple rule: utility first.</p><h3>Give People Something They Will Use</h3><p>Tote bags, water bottles, notebooks - people keep things that serve a daily function. A beautifully printed notebook with your logo lives on a desk for months.</p><h3>Quality Signals Value</h3><p>A cheap, flimsy t-shirt with a cracked print communicates the opposite of what you intend. Invest in quality. People associate the quality of your merch with the quality of your service.</p><h3>Less Logo, More Personality</h3><p>The best branded merch feels like something people would choose to wear even without the brand. Use your brand colours and a subtle logo.</p><h3>Think About Your Audience</h3><p>A tech startup gifts AirPods cases. A food brand gifts aprons. Match the merch to the lifestyle of your customer.</p><p>We produce everything from custom tote bags to branded packaging - let us talk about what works for your brand.</p>"
+      }
     ];
 
-    blogGrid.innerHTML = blogPosts.map(function(p, i) {
-      return '<article class="blog-card fade-in-up" data-blog="'+i+'"><div class="blog-thumb" style="background-image:url(\'' + p.img + '\');background-size:cover;background-position:center;"><span class="blog-cat">'+p.cat+'</span></div><div class="blog-body"><div class="blog-meta"><span>'+p.date+'</span><span>·</span><span>'+p.time+'</span></div><h3>'+p.title+'</h3><p>'+p.excerpt+'</p><span class="blog-read-more">Read more →</span></div></article>';
-    }).join("");
+    var html = "";
+    for (var i = 0; i < blogPosts.length; i++) {
+      var p = blogPosts[i];
+      html += '<article class="blog-card fade-in-up" data-blog="' + i + '">';
+      html += '<div class="blog-thumb" style="background-image:url(\'' + p.img + '\');background-size:cover;background-position:center;">';
+      html += '<span class="blog-cat">' + p.cat + '</span></div>';
+      html += '<div class="blog-body"><div class="blog-meta"><span>' + p.date + '</span><span>&middot;</span><span>' + p.time + '</span></div>';
+      html += '<h3>' + p.title + '</h3><p>' + p.excerpt + '</p>';
+      html += '<span class="blog-read-more">Read more &rarr;</span></div></article>';
+    }
+    blogGrid.innerHTML = html;
 
-    document.querySelectorAll(".blog-card[data-blog]").forEach(function(card) {
+    var cards = document.querySelectorAll(".blog-card[data-blog]");
+    cards.forEach(function(card) {
       card.addEventListener("click", function() {
         var post = blogPosts[card.dataset.blog];
         var overlay = document.createElement("div");
         overlay.className = "blog-modal-overlay";
-        overlay.innerHTML = '<div class="blog-modal"><div
+        var modal = '<div class="blog-modal"><div class="blog-modal-header"><div>';
+        modal += '<span class="section-tag">' + post.cat + '</span>';
+        modal += '<h3 style="margin-top:0.5rem">' + post.title + '</h3>';
+        modal += '<div class="blog-meta" style="margin-top:0.5rem">' + post.date + ' &middot; ' + post.time + '</div></div>';
+        modal += '<button class="blog-modal-close" aria-label="Close">&times;</button></div>';
+        modal += '<div class="blog-modal-content">' + post.content + '</div></div>';
+        overlay.innerHTML = modal;
+        document.body.appendChild(overlay);
+        document.body.style.overflow = "hidden";
+        function closeModal() { overlay.remove(); document.body.style.overflow = ""; }
+        overlay.querySelector(".blog-modal-close").addEventListener("click", closeModal);
+        overlay.addEventListener("click", function(e) { if (e.target === overlay) closeModal(); });
+      });
+    });
+  }
 
   // Scroll animations
   document.querySelectorAll(".service-card,.portfolio-item,.pricing-card,.about-stat,.contact-detail").forEach(function(el, i) {
@@ -117,7 +164,7 @@ window.onload = function() {
     }
 
     if (submitBtn) submitBtn.disabled = true;
-    if (btnText) btnText.textContent = "Sending…";
+    if (btnText) btnText.textContent = "Sending...";
     if (msgEl) { msgEl.textContent = ""; msgEl.className = "form-message"; }
 
     emailjs.init({publicKey: EMAILJS_PUBLIC_KEY});
@@ -130,11 +177,10 @@ window.onload = function() {
       budget: budgetEl ? budgetEl.value.trim() : "Not specified",
       message: detailsEl ? detailsEl.value.trim() : "None"
     }).then(function() {
-      if (msgEl) { msgEl.textContent = "✅ Message sent! We'll be in touch within 24 hours."; msgEl.className = "form-message success"; }
+      if (msgEl) { msgEl.textContent = "Message sent! We will be in touch within 24 hours."; msgEl.className = "form-message success"; }
       form.reset();
     }).catch(function(err) {
-      var errMsg = JSON.stringify(err) || err.text || err.message || "Unknown error";
-      if (msgEl) { msgEl.textContent = "❌ Error: " + errMsg; msgEl.className = "form-message error"; }
+      if (msgEl) { msgEl.textContent = "Failed to send. Please try WhatsApp instead."; msgEl.className = "form-message error"; }
     }).finally(function() {
       if (submitBtn) submitBtn.disabled = false;
       if (btnText) btnText.textContent = "Send Request";
