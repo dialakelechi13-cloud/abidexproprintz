@@ -272,7 +272,9 @@ ul { list-style: none; }
    ══════════════════════════════════════════════════════════ */
 .hero {
   min-height: 100vh;
-  background: #0a0a0a;
+  background:
+    linear-gradient(rgba(10,10,10,0.88), rgba(10,10,10,0.92)),
+    url("https://images.unsplash.com/photo-1601225998662-12bc8c5a4f6f?w=1600&q=80") center/cover no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: center;
