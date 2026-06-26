@@ -22,7 +22,7 @@
   --grey-mid:    #8a8a8a;
   --grey-light:  #e8e8e8;
 
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: 'Poppins', system-ui, sans-serif;
   --font-body:    'DM Sans', system-ui, sans-serif;
   --font-mono:    'Space Mono', monospace;
 
@@ -65,7 +65,7 @@ h1 { font-size: clamp(2.8rem, 7vw, 6rem); }
 h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
 h3 { font-size: 1.35rem; }
 
-em { font-style: italic; color: var(--green); }
+em { font-style: normal; color: var(--gold); }
 
 a { color: inherit; text-decoration: none; }
 
