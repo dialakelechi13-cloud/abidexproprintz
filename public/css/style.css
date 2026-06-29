@@ -446,9 +446,9 @@ ul { list-style: none; }
 .logo-track {
   display: flex;
   align-items: center;
-  gap: 4rem;
+  gap: 1.5rem;
   width: max-content;
-  animation: logoScroll 40s linear infinite;
+  animation: logoScroll 45s linear infinite;
 }
 
 .logo-strip:hover .logo-track {
@@ -456,19 +456,20 @@ ul { list-style: none; }
 }
 
 .logo-track img {
-  height: 55px;
-  width: 130px;
+  height: 90px;
+  width: 170px;
   object-fit: contain;
   background: var(--white);
-  padding: 10px 16px;
-  border-radius: var(--radius);
+  padding: 18px 24px;
+  border-radius: 14px;
   flex-shrink: 0;
-  transition: var(--transition);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .logo-track img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
 }
 
 @keyframes logoScroll {
