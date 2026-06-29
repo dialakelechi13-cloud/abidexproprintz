@@ -284,13 +284,10 @@ ul { list-style: none; }
 .hero::before {
   content: '';
   position: absolute;
-  top: -20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 900px;
-  height: 600px;
-  background: radial-gradient(ellipse at center, rgba(201,168,76,0.18) 0%, rgba(201,168,76,0.06) 35%, transparent 70%);
-  filter: blur(20px);
+  inset: 0;
+  background:
+    linear-gradient(rgba(10,10,10,0.82), rgba(10,10,10,0.92)),
+    url("https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=1600&q=80") center/cover no-repeat;
   pointer-events: none;
   z-index: 0;
 }
