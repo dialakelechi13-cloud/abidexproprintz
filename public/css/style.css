@@ -309,10 +309,7 @@ ul { list-style: none; }
 .hero-grid-overlay {
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(201,168,76,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(201,168,76,0.05) 1px, transparent 1px);
-  background-size: 60px 60px;
+  background: none;
   pointer-events: none;
 }
 
