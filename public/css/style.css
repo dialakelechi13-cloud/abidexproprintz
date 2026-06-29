@@ -416,6 +416,49 @@ ul { list-style: none; }
    ══════════════════════════════════════════════════════════ */
 .feature-banner { background: var(--cream); }
 
+/* ══════════════════════════════════════════════════════════
+   TRUSTED BY
+   ══════════════════════════════════════════════════════════ */
+.trusted {
+  background: var(--ink);
+  padding: 3rem 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.trusted-label {
+  text-align: center;
+  color: rgba(255,255,255,0.45);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+
+.logo-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.logo-strip img {
+  height: 48px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.55;
+  transition: var(--transition);
+}
+
+.logo-strip img:hover {
+  opacity: 1;
+  filter: none;
+}
+
 .feature-inner {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
