@@ -366,7 +366,24 @@ ul { list-style: none; }
   letter-spacing: -0.02em;
   color: var(--white);
   margin-bottom: 1.5rem;
-  animation: heroFadeIn 1s 0.2s ease both;
+}
+
+.hero-headline .line {
+  display: block;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: lineReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-headline .line1 { animation-delay: 0.2s; }
+.hero-headline .line2 { animation-delay: 0.45s; }
+.hero-headline .line3 { animation-delay: 0.7s; }
+
+@keyframes lineReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-headline-unused {
 }
 
 .hero-ink {
