@@ -37,6 +37,7 @@
 }
 
 html {
+  background: #0a0a0a;
   scroll-behavior: smooth;
   font-size: 16px;
 }
