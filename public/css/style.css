@@ -1064,6 +1064,28 @@ ul { list-style: none; }
 /* ══════════════════════════════════════════════════════════
    HOW IT WORKS
    ══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════
+   VIDEO
+   ══════════════════════════════════════════════════════════ */
+.video-section { background: var(--cream-dark); }
+
+.video-wrap {
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 9 / 16;
+  background: #000;
+}
+
+.video-wrap iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+}
+
 .process { background: var(--cream); }
 
 .process-grid {
