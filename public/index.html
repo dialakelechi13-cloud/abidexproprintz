@@ -50,15 +50,20 @@
 </head>
 <body>
   <header id="header">
-    <nav class="nav-inner">
+    <nav class="">
       <a href="#home" class="logo" aria-label="Abidexpro Printz home">
         <img src="images/Abidex_Logo_updated.png" alt="Abidexpro Printz printing company Lagos" style="height:65px;width:auto;max-width:160px;" />
       </a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#services">Services</a></li>
+        <li class="nav-dropdown">
+          <a href="#services" class="nav-dropdown-toggle">Services <span class="nav-caret">▾</span></a>
+          <ul class="nav-dropdown-menu">
+            <li><a href="#services">All Services</a></li>
+            <li><a href="/business-cards">Business Cards</a></li>
+            <li><a href="/banners">Banners</a></li>
+          </ul>
+        </li>
         <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="/business-cards">Business Cards</a></li>
-        <li><a href="/banners">Banners</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#blog">Blog</a></li>

@@ -2048,4 +2048,70 @@ ul { list-style: none; }
   .blog-modal-overlay { padding: 1rem; }
   .blog-modal-header { padding: 1.25rem; }
   .blog-modal-content { padding: 1rem 1.25rem 1.5rem; }
+}/* ── Nav dropdown (Services menu) ─────────────────────── */
+.nav-dropdown { position: relative; }
+.nav-dropdown-toggle { display: inline-flex; align-items: center; gap: 0.3rem; }
+.nav-caret { font-size: 0.65rem; transition: transform var(--transition); }
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 210px;
+  background: rgba(12,12,12,0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(201,168,76,0.22);
+  border-radius: var(--radius);
+  padding: 0.45rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  z-index: 950;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.nav-dropdown:hover .nav-caret { transform: rotate(180deg); }
+
+.nav-dropdown-menu li { width: 100%; }
+.nav-dropdown-menu a {
+  display: block;
+  white-space: nowrap;
+  padding: 0.6rem 0.9rem !important;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.75);
+}
+.nav-dropdown-menu a:hover {
+  background: rgba(201,168,76,0.12) !important;
+  color: var(--gold) !important;
+}
+
+/* Mobile: expand the dropdown inline inside the hamburger menu */
+@media (max-width: 768px) {
+  .nav-dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+    padding: 0 0 0 1rem;
+    margin-top: 0.15rem;
+  }
+  .nav-dropdown-menu a { color: rgba(255,255,255,0.6); }
+  .nav-caret { display: none; }
 }
