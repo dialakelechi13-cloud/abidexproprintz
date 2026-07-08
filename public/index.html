@@ -347,5 +347,20 @@
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
+  <script>
+    // Track WhatsApp clicks in Google Analytics + Vercel Analytics
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('a[href*="wa.me"]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          if (typeof gtag === 'function') {
+            gtag('event', 'whatsapp_click', { event_category: 'engagement', event_label: 'WhatsApp Button' });
+          }
+          if (typeof window.va === 'function') {
+            window.va('event', { name: 'WhatsApp Click' });
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
