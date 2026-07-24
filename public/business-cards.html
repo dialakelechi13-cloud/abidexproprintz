@@ -306,9 +306,15 @@
   :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
 
   /* real photo in hero */
-  .hero-photo{width:100%;max-width:430px;border-radius:18px;border:1px solid rgba(212,175,55,.28);
-    box-shadow:0 30px 60px rgba(0,0,0,.55);display:block;object-fit:cover;animation:floatimg 6s ease-in-out infinite}
-  @keyframes floatimg{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .hero-photo{
+    width:100%;max-width:420px;height:auto;max-height:400px;
+    aspect-ratio:4/3;object-fit:cover;object-position:center;
+    border-radius:18px;border:1px solid rgba(212,175,55,.28);
+    box-shadow:0 26px 52px rgba(0,0,0,.5);display:block;margin:0 auto;
+    animation:floatimg 6s ease-in-out infinite;
+  }
+  @keyframes floatimg{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  @media(max-width:880px){.hero-photo{max-width:360px;max-height:320px}}
   @media(prefers-reduced-motion:reduce){.hero-photo{animation:none}}
 </style>
 </head>
@@ -345,7 +351,7 @@
       </div>
     </div>
     <div class="card-stage">
-      <img class="hero-photo" src="/images/business-cards.jpg" alt="Business cards printed by Abidexpro Printz in Lagos" width="1100" height="800" />
+      <img class="hero-photo" src="/images/business-cards.jpg" alt="Business cards printed by Abidexpro Printz in Lagos" />
     </div>
   </div>
 </section>
