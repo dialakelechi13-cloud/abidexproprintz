@@ -306,6 +306,12 @@
     html{scroll-behavior:auto}
   }
   :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+
+  /* real photo in hero */
+  .hero-photo{width:100%;max-width:430px;border-radius:18px;border:1px solid rgba(212,175,55,.28);
+    box-shadow:0 30px 60px rgba(0,0,0,.55);display:block;object-fit:cover;animation:floatimg 6s ease-in-out infinite}
+  @keyframes floatimg{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @media(prefers-reduced-motion:reduce){.hero-photo{animation:none}}
 </style>
 </head>
 <body>
@@ -341,16 +347,7 @@
       </div>
     </div>
     <div class="banner-stage">
-      <div class="rollup">
-        <div class="panel-b">
-          <div class="b-logo">A</div>
-          <div class="b-title">YOUR BRAND</div>
-          <div class="b-sub">Stand out at every event</div>
-          <div class="b-lines"><span></span><span></span><span></span></div>
-        </div>
-        <div class="pole"></div>
-        <div class="base"></div>
-      </div>
+      <img class="hero-photo" src="/images/banners.jpg" alt="Banner and signage printed by Abidexpro Printz in Lagos" width="1100" height="800" />
     </div>
   </div>
 </section>

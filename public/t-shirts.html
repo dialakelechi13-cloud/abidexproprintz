@@ -285,6 +285,12 @@
     html{scroll-behavior:auto}
   }
   :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+
+  /* real photo in hero */
+  .hero-photo{width:100%;max-width:430px;border-radius:18px;border:1px solid rgba(212,175,55,.28);
+    box-shadow:0 30px 60px rgba(0,0,0,.55);display:block;object-fit:cover;animation:floatimg 6s ease-in-out infinite}
+  @keyframes floatimg{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @media(prefers-reduced-motion:reduce){.hero-photo{animation:none}}
 </style>
 </head>
 <body>
@@ -320,56 +326,7 @@
       </div>
     </div>
     <div class="tee-stage">
-      <svg class="tee" viewBox="0 0 380 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Custom printed t-shirt mockup">
-        <defs>
-          <linearGradient id="teeFab" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#26262f"/>
-            <stop offset="0.5" stop-color="#181820"/>
-            <stop offset="1" stop-color="#0e0e14"/>
-          </linearGradient>
-          <linearGradient id="teeSheenGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stop-color="#e8c874" stop-opacity="0"/>
-            <stop offset="0.5" stop-color="#e8c874" stop-opacity="0.20"/>
-            <stop offset="1" stop-color="#e8c874" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="teeBadge" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#d4af37"/>
-            <stop offset="1" stop-color="#e8c874"/>
-          </linearGradient>
-          <clipPath id="teeClip">
-            <path d="M 130 68 C 120 64 92 56 74 60 C 66 62 60 66 56 74 L 30 132 C 26 142 30 150 40 152 L 96 158 L 96 360 C 96 368 100 372 108 372 L 272 372 C 280 372 284 368 284 360 L 284 158 L 340 152 C 350 150 354 142 350 132 L 324 74 C 320 66 314 62 306 60 C 288 56 260 64 250 68 C 240 90 222 102 190 102 C 158 102 140 90 130 68 Z"/>
-          </clipPath>
-        </defs>
-
-        <!-- shirt body -->
-        <path d="M 130 68 C 120 64 92 56 74 60 C 66 62 60 66 56 74 L 30 132 C 26 142 30 150 40 152 L 96 158 L 96 360 C 96 368 100 372 108 372 L 272 372 C 280 372 284 368 284 360 L 284 158 L 340 152 C 350 150 354 142 350 132 L 324 74 C 320 66 314 62 306 60 C 288 56 260 64 250 68 C 240 90 222 102 190 102 C 158 102 140 90 130 68 Z" fill="url(#teeFab)" stroke="rgba(212,175,55,0.30)" stroke-width="1.5"/>
-
-        <!-- fabric folds / shading -->
-        <path d="M150 152 C 158 240 154 320 150 358" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="9" stroke-linecap="round"/>
-        <path d="M232 152 C 224 240 228 320 232 358" fill="none" stroke="rgba(0,0,0,0.16)" stroke-width="12" stroke-linecap="round"/>
-        <path d="M99 164 C 94 240 94 312 102 358" fill="none" stroke="rgba(0,0,0,0.14)" stroke-width="10" stroke-linecap="round"/>
-        <path d="M281 164 C 286 240 286 312 278 358" fill="none" stroke="rgba(0,0,0,0.14)" stroke-width="10" stroke-linecap="round"/>
-
-        <!-- collar -->
-        <path d="M130 68 C 142 92 160 104 190 104 C 220 104 238 92 250 68" fill="none" stroke="url(#teeBadge)" stroke-width="7" stroke-linecap="round" opacity="0.85"/>
-        <path d="M126 62 C 140 90 160 100 190 100 C 220 100 240 90 254 62" fill="none" stroke="rgba(0,0,0,0.22)" stroke-width="3" stroke-linecap="round"/>
-
-        <!-- sleeve seams -->
-        <path d="M96 158 L 112 150" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="3" stroke-linecap="round"/>
-        <path d="M284 158 L 268 150" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="3" stroke-linecap="round"/>
-
-        <!-- animated sheen (clipped to shirt) -->
-        <g clip-path="url(#teeClip)">
-          <g transform="rotate(18 190 200)">
-            <rect class="tee-sheen" x="0" y="-90" width="70" height="580" fill="url(#teeSheenGrad)"/>
-          </g>
-        </g>
-
-        <!-- chest print -->
-        <rect x="158" y="172" width="64" height="64" rx="16" fill="url(#teeBadge)"/>
-        <text x="190" y="216" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="700" font-size="34" fill="#241c00">A</text>
-        <text x="190" y="264" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="600" font-size="13" letter-spacing="2" fill="#e8c874">YOUR BRAND</text>
-      </svg>
+      <img class="hero-photo" src="/images/t-shirts.jpg" alt="Custom printed t-shirt by Abidexpro Printz in Lagos" width="1100" height="800" />
     </div>
   </div>
 </section>
