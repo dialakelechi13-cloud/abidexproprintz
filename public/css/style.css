@@ -438,11 +438,13 @@ ul { list-style: none; }
 .hero-marquee {
   position: relative;
   z-index: 2;
-  border-top: 1px solid rgba(201,168,76,0.2);
-  border-bottom: 1px solid rgba(201,168,76,0.2);
-  padding: 0.85rem 0;
+  border-top: 1px solid rgba(201,168,76,0.35);
+  border-bottom: 1px solid rgba(201,168,76,0.35);
+  padding: 1.05rem 0;
   overflow: hidden;
-  background: rgba(201,168,76,0.04);
+  background: linear-gradient(rgba(15,15,18,0.96), rgba(20,18,14,0.96));
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
 
 .marquee-track {
@@ -454,10 +456,11 @@ ul { list-style: none; }
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(201,168,76,0.6);
+  color: rgba(201,168,76,0.85);
 }
 
 .marquee-track span { flex-shrink: 0; }
+.marquee-track span::after { content: "◆"; margin-left: 2rem; color: rgba(201,168,76,0.4); font-size: 0.6rem; vertical-align: middle; }
 
 @keyframes marquee {
   from { transform: translateX(0); }
