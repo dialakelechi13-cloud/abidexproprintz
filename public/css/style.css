@@ -279,7 +279,7 @@ ul { list-style: none; }
 .hero {
   min-height: 100vh;
   background:
-    linear-gradient(rgba(8,12,9,0.55), rgba(8,12,9,0.75)),
+    linear-gradient(rgba(10,10,14,0.55), rgba(10,10,14,0.75)),
     url("../images/hero-bg.jpg") center/cover no-repeat;
   display: flex;
   flex-direction: column;
@@ -294,7 +294,7 @@ ul { list-style: none; }
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(rgba(8,12,9,0.55), rgba(8,12,9,0.75)),
+    linear-gradient(rgba(10,10,14,0.55), rgba(10,10,14,0.75)),
     url("../images/hero-bg.jpg") center/cover no-repeat;
   pointer-events: none;
   z-index: 0;
