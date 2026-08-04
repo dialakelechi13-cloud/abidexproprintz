@@ -343,6 +343,44 @@
 
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="js/main.js"></script>
+
+  <!-- Supabase: save quote requests to database -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    var SUPABASE_URL = 'https://cgxyqznnffibcdqeuejs.supabase.co';
+    var SUPABASE_KEY = 'sb_publishable_EpEQIfK6Qs-FJhp8kwIsVA_QkFDC_vT';
+    var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var form = document.getElementById('orderForm');
+      if (!form) return;
+
+      form.addEventListener('submit', function () {
+        var val = function (id) {
+          var el = document.getElementById(id);
+          return el ? el.value.trim() : '';
+        };
+
+        if (!val('name') || !val('email') || !val('service')) return;
+
+        sb.from('quote_requests').insert({
+          name: val('name'),
+          email: val('email'),
+          phone: val('phone'),
+          service: val('service'),
+          quantity: val('quantity'),
+          budget: val('budget'),
+          message: val('details')
+        }).then(function (res) {
+          if (res.error) {
+            console.error('Supabase save failed:', res.error.message);
+          } else {
+            console.log('Quote request saved to database');
+          }
+        });
+      });
+    });
+  </script>
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
