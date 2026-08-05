@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin &middot; AbidexPro Printz</title>
+  <link rel="icon" href="images/logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --panel: #141414;
+      --panel-2: #1c1c1c;
+      --line: #2a2a2a;
+      --gold: #c9a227;
+      --gold-soft: rgba(201, 162, 39, 0.12);
+      --text: #f2f2f2;
+      --muted: #8f8f8f;
+      --green: #3fb950;
+      --blue: #4a9eff;
+      --red: #f85149;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2 { font-family: 'Space Grotesk', sans-serif; }
+
+    /* ---------- Login ---------- */
+    .login-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 380px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 36px 28px;
+    }
+
+    .login-card img { width: 62px; margin: 0 auto 18px; display: block; }
+    .login-card h1 { font-size: 21px; text-align: center; margin-bottom: 6px; }
+    .login-card p.sub { text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 26px; }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 7px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 11px 13px;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input:focus, select:focus { border-color: var(--gold); }
+
+    .field { margin-bottom: 18px; }
+
+    button.primary {
+      width: 100%;
+      background: var(--gold);
+      color: #111;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    button.primary:hover { opacity: 0.88; }
+    button.primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .msg {
+      margin-top: 16px;
+      font-size: 13px;
+      text-align: center;
+      min-height: 18px;
+    }
+    .msg.error { color: var(--red); }
+
+    /* ---------- Dashboard ---------- */
+    .hidden { display: none !important; }
+
+    header.bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      flex-wrap: wrap;
+    }
+
+    .brand { display: flex; align-items: center; gap: 11px; }
+    .brand img { width: 34px; }
+    .brand span { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; }
+
+    .bar-actions { display: flex; align-items: center; gap: 10px; }
+
+    button.ghost {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      border-radius: 7px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    button.ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    main { padding: 24px 22px 60px; max-width: 1400px; margin: 0 auto; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 16px 18px;
+    }
+    .stat .num { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; }
+    .stat .lbl { font-size: 12px; color: var(--muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat.new .num { color: var(--gold); }
+    .stat.won .num { color: var(--green); }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .toolbar input { flex: 1; min-width: 200px; }
+    .toolbar select { width: auto; min-width: 150px; }
+
+    .cards { display: grid; gap: 12px; }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .card-name { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; }
+    .card-date { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .pill.new { background: var(--gold-soft); color: var(--gold); }
+    .pill.quoted { background: rgba(74,158,255,0.13); color: var(--blue); }
+    .pill.won { background: rgba(63,185,80,0.13); color: var(--green); }
+    .pill.lost { background: rgba(248,81,73,0.13); color: var(--red); }
+
+    .grid-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px 20px;
+      margin-bottom: 14px;
+    }
+    .info-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+    .info-val { font-size: 14px; word-break: break-word; }
+    .info-val a { color: var(--gold); text-decoration: none; }
+    .info-val a:hover { text-decoration: underline; }
+
+    .details-box {
+      background: var(--panel-2);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: #ddd;
+      white-space: pre-wrap;
+      margin-bottom: 14px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+    .card-actions select { width: auto; min-width: 130px; padding: 8px 11px; font-size: 13px; }
+
+    a.wa-btn {
+      background: #25D366;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 7px;
+      padding: 9px 15px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+
+    @media (max-width: 600px) {
+      main { padding: 18px 14px 50px; }
+      header.bar { padding: 14px 16px; }
+      .card { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div class="login-wrap" id="loginScreen">
+    <div class="login-card">
+      <img src="images/logo.png" alt="AbidexPro Printz" />
+      <h1>Admin Login</h1>
+      <p class="sub">Quote requests dashboard</p>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" autocomplete="username" />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" autocomplete="current-password" />
+      </div>
+
+      <button class="primary" id="loginBtn">Sign In</button>
+      <div class="msg" id="loginMsg"></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="hidden">
+    <header class="bar">
+      <div class="brand">
+        <img src="images/logo.png" alt="" />
+        <span>Quote Requests</span>
+      </div>
+      <div class="bar-actions">
+        <button class="ghost" id="refreshBtn">Refresh</button>
+        <button class="ghost" id="logoutBtn">Log out</button>
+      </div>
+    </header>
+
+    <main>
+      <div class="stats">
+        <div class="stat"><div class="num" id="statTotal">0</div><div class="lbl">Total</div></div>
+        <div class="stat new"><div class="num" id="statNew">0</div><div class="lbl">New</div></div>
+        <div class="stat"><div class="num" id="statQuoted">0</div><div class="lbl">Quoted</div></div>
+        <div class="stat won"><div class="num" id="statWon">0</div><div class="lbl">Won</div></div>
+      </div>
+
+      <div class="toolbar">
+        <input type="text" id="search" placeholder="Search name, email, phone, service..." />
+        <select id="filterStatus">
+          <option value="all">All statuses</option>
+          <option value="new">New</option>
+          <option value="quoted">Quoted</option>
+          <option value="won">Won</option>
+          <option value="lost">Lost</option>
+        </select>
+      </div>
+
+      <div class="cards" id="cards"></div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    var SUPABASE_URL = 'https://cgxyqznnffibcdqeuejs.supabase.co';
+    var SUPABASE_KEY = 'sb_publishable_EpEQIfK6Qs-FJhp8kwIsVA_QkFDC_vT';
+    var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    var loginScreen = document.getElementById('loginScreen');
+    var dashboard = document.getElementById('dashboard');
+    var loginMsg = document.getElementById('loginMsg');
+    var loginBtn = document.getElementById('loginBtn');
+    var cardsEl = document.getElementById('cards');
+    var searchEl = document.getElementById('search');
+    var filterEl = document.getElementById('filterStatus');
+
+    var allRows = [];
+
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    function fmtDate(iso) {
+      var d = new Date(iso);
+      return d.toLocaleString('en-NG', {
+        day: 'numeric', month: 'short', year: 'numeric',
+        hour: 'numeric', minute: '2-digit'
+      });
+    }
+
+    function waLink(phone) {
+      var p = String(phone || '').replace(/[^0-9]/g, '');
+      if (!p) return null;
+      if (p.charAt(0) === '0') p = '234' + p.slice(1);
+      if (p.indexOf('234') !== 0) p = '234' + p;
+      return 'https://wa.me/' + p;
+    }
+
+    /* ---------- Auth ---------- */
+    function doLogin() {
+      var email = document.getElementById('email').value.trim();
+      var password = document.getElementById('password').value;
+      if (!email || !password) {
+        loginMsg.className = 'msg error';
+        loginMsg.textContent = 'Enter your email and password.';
+        return;
+      }
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Signing in...';
+      loginMsg.textContent = '';
+
+      sb.auth.signInWithPassword({ email: email, password: password }).then(function (res) {
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Sign In';
+        if (res.error) {
+          loginMsg.className = 'msg error';
+          loginMsg.textContent = res.error.message;
+          return;
+        }
+        showDashboard();
+      });
+    }
+
+    loginBtn.addEventListener('click', doLogin);
+    document.getElementById('password').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') doLogin();
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', function () {
+      sb.auth.signOut().then(function () { location.reload(); });
+    });
+
+    document.getElementById('refreshBtn').addEventListener('click', loadRequests);
+
+    function showDashboard() {
+      loginScreen.classList.add('hidden');
+      dashboard.classList.remove('hidden');
+      loadRequests();
+    }
+
+    /* ---------- Data ---------- */
+    function loadRequests() {
+      cardsEl.innerHTML = '<div class="empty">Loading...</div>';
+      sb.from('quote_requests')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .then(function (res) {
+          if (res.error) {
+            cardsEl.innerHTML = '<div class="empty">Could not load: ' + esc(res.error.message) + '</div>';
+            return;
+          }
+          allRows = res.data || [];
+          updateStats();
+          render();
+        });
+    }
+
+    function updateStats() {
+      var count = function (s) {
+        return allRows.filter(function (r) { return (r.status || 'new') === s; }).length;
+      };
+      document.getElementById('statTotal').textContent = allRows.length;
+      document.getElementById('statNew').textContent = count('new');
+      document.getElementById('statQuoted').textContent = count('quoted');
+      document.getElementById('statWon').textContent = count('won');
+    }
+
+    function render() {
+      var q = searchEl.value.trim().toLowerCase();
+      var f = filterEl.value;
+
+      var rows = allRows.filter(function (r) {
+        var status = r.status || 'new';
+        if (f !== 'all' && status !== f) return false;
+        if (!q) return true;
+        var hay = [r.name, r.email, r.phone, r.service, r.message].join(' ').toLowerCase();
+        return hay.indexOf(q) !== -1;
+      });
+
+      if (!rows.length) {
+        cardsEl.innerHTML = '<div class="empty">No requests match.</div>';
+        return;
+      }
+
+      cardsEl.innerHTML = rows.map(function (r) {
+        var status = r.status || 'new';
+        var wa = waLink(r.phone);
+
+        var info = '';
+        info += '<div><div class="info-lbl">Service</div><div class="info-val">' + (esc(r.service) || '&mdash;') + '</div></div>';
+        info += '<div><div class="info-lbl">Quantity</div><div class="info-val">' + (esc(r.quantity) || '&mdash;') + '</div></div>';
+        info += '<div><div class="info-lbl">Budget</div><div class="info-val">' + (esc(r.budget) || '&mdash;') + '</div></div>';
+        info += '<div><div class="info-lbl">Phone</div><div class="info-val">' + (r.phone ? '<a href="tel:' + esc(r.phone) + '">' + esc(r.phone) + '</a>' : '&mdash;') + '</div></div>';
+        info += '<div><div class="info-lbl">Email</div><div class="info-val">' + (r.email ? '<a href="mailto:' + esc(r.email) + '">' + esc(r.email) + '</a>' : '&mdash;') + '</div></div>';
+
+        var opts = ['new', 'quoted', 'won', 'lost'].map(function (s) {
+          return '<option value="' + s + '"' + (s === status ? ' selected' : '') + '>' +
+            s.charAt(0).toUpperCase() + s.slice(1) + '</option>';
+        }).join('');
+
+        return '' +
+          '<div class="card">' +
+            '<div class="card-top">' +
+              '<div>' +
+                '<div class="card-name">' + esc(r.name) + '</div>' +
+                '<div class="card-date">' + fmtDate(r.created_at) + '</div>' +
+              '</div>' +
+              '<span class="pill ' + status + '">' + status + '</span>' +
+            '</div>' +
+            '<div class="grid-info">' + info + '</div>' +
+            (r.message ? '<div class="details-box">' + esc(r.message) + '</div>' : '') +
+            '<div class="card-actions">' +
+              '<select data-id="' + r.id + '" class="status-select">' + opts + '</select>' +
+              (wa ? '<a class="wa-btn" href="' + wa + '" target="_blank" rel="noopener">WhatsApp</a>' : '') +
+            '</div>' +
+          '</div>';
+      }).join('');
+
+      var selects = cardsEl.querySelectorAll('.status-select');
+      for (var i = 0; i < selects.length; i++) {
+        selects[i].addEventListener('change', function () {
+          var id = this.getAttribute('data-id');
+          var val = this.value;
+          var el = this;
+          el.disabled = true;
+          sb.from('quote_requests').update({ status: val }).eq('id', id).then(function (res) {
+            el.disabled = false;
+            if (res.error) {
+              alert('Could not update: ' + res.error.message);
+              return;
+            }
+            for (var j = 0; j < allRows.length; j++) {
+              if (allRows[j].id === id) allRows[j].status = val;
+            }
+            updateStats();
+            render();
+          });
+        });
+      }
+    }
+
+    searchEl.addEventListener('input', render);
+    filterEl.addEventListener('change', render);
+
+    /* ---------- Stay logged in ---------- */
+    sb.auth.getSession().then(function (res) {
+      if (res.data && res.data.session) showDashboard();
+    });
+  </script>
+</body>
+</html>
