@@ -254,6 +254,67 @@
     .save-flag.good { color: var(--green); }
     .save-flag.bad { color: var(--red); }
 
+    .insights-head { margin-bottom: 16px; }
+
+    .insights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .chart-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .chart-card h2 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 96px 1fr 44px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 9px;
+      font-size: 13px;
+    }
+    .bar-row .lab { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bar-track { background: var(--panel-2); border-radius: 5px; height: 20px; overflow: hidden; }
+    .bar-fill { background: var(--gold); height: 100%; border-radius: 5px; min-width: 2px; transition: width 0.3s; }
+    .bar-row .val { text-align: right; font-weight: 600; }
+
+    .big-figure {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .figure-note { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+
+    .split-track {
+      display: flex;
+      height: 22px;
+      border-radius: 5px;
+      overflow: hidden;
+      background: var(--panel-2);
+      margin-top: 14px;
+    }
+    .split-won { background: var(--green); }
+    .split-lost { background: var(--red); }
+
+    .legend { display: flex; gap: 16px; margin-top: 12px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+    .legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; }
+
+    .no-data { color: var(--muted); font-size: 13px; padding: 14px 0; }
+
     .card-actions {
       display: flex;
       gap: 10px;
@@ -331,6 +392,29 @@
         <div class="stat won"><div class="num" id="statWon">0</div><div class="lbl">Won</div></div>
         <div class="stat won"><div class="num" id="statWonValue">&#8358;0</div><div class="lbl">Won value</div></div>
         <div class="stat"><div class="num" id="statPipeline">&#8358;0</div><div class="lbl">Open pipeline</div></div>
+      </div>
+
+      <div class="insights-head">
+        <button class="ghost" id="toggleInsights">Show insights</button>
+      </div>
+
+      <div id="insights" class="insights hidden">
+        <div class="chart-card">
+          <h2>Leads per month</h2>
+          <div id="chartMonths"></div>
+        </div>
+        <div class="chart-card">
+          <h2>Requests by service</h2>
+          <div id="chartServices"></div>
+        </div>
+        <div class="chart-card">
+          <h2>Win rate</h2>
+          <div id="chartWinRate"></div>
+        </div>
+        <div class="chart-card">
+          <h2>Average job value</h2>
+          <div id="chartAvgValue"></div>
+        </div>
       </div>
 
       <div class="toolbar">
@@ -442,6 +526,7 @@
           allRows = res.data || [];
           updateStats();
           render();
+          if (!insightsEl.classList.contains('hidden')) renderInsights();
         });
     }
 
@@ -593,6 +678,119 @@
           });
         });
       }
+    }
+
+    /* ---------- Insights ---------- */
+    var insightsEl = document.getElementById('insights');
+    var toggleBtn = document.getElementById('toggleInsights');
+
+    toggleBtn.addEventListener('click', function () {
+      var hidden = insightsEl.classList.toggle('hidden');
+      toggleBtn.textContent = hidden ? 'Show insights' : 'Hide insights';
+      if (!hidden) renderInsights();
+    });
+
+    function barRows(items, total) {
+      if (!items.length) return '<div class="no-data">Nothing to show yet.</div>';
+      var max = Math.max.apply(null, items.map(function (i) { return i.value; })) || 1;
+      return items.map(function (i) {
+        var pct = Math.round((i.value / max) * 100);
+        return '<div class="bar-row">' +
+          '<div class="lab" title="' + esc(i.label) + '">' + esc(i.label) + '</div>' +
+          '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%"></div></div>' +
+          '<div class="val">' + i.value + '</div>' +
+          '</div>';
+      }).join('');
+    }
+
+    function renderInsights() {
+      renderMonths();
+      renderServices();
+      renderWinRate();
+      renderAvgValue();
+    }
+
+    function renderMonths() {
+      var names = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var buckets = [];
+      var now = new Date();
+      for (var i = 5; i >= 0; i--) {
+        var d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        buckets.push({
+          key: d.getFullYear() + '-' + d.getMonth(),
+          label: names[d.getMonth()] + ' ' + String(d.getFullYear()).slice(2),
+          value: 0
+        });
+      }
+      allRows.forEach(function (r) {
+        var d = new Date(r.created_at);
+        var key = d.getFullYear() + '-' + d.getMonth();
+        for (var j = 0; j < buckets.length; j++) {
+          if (buckets[j].key === key) buckets[j].value++;
+        }
+      });
+      document.getElementById('chartMonths').innerHTML = barRows(buckets);
+    }
+
+    function renderServices() {
+      var map = {};
+      allRows.forEach(function (r) {
+        var s = (r.service || 'Not specified').trim();
+        map[s] = (map[s] || 0) + 1;
+      });
+      var items = Object.keys(map).map(function (k) {
+        return { label: k, value: map[k] };
+      }).sort(function (a, b) { return b.value - a.value; }).slice(0, 8);
+      document.getElementById('chartServices').innerHTML = barRows(items);
+    }
+
+    function renderWinRate() {
+      var won = allRows.filter(function (r) { return r.status === 'won'; }).length;
+      var lost = allRows.filter(function (r) { return r.status === 'lost'; }).length;
+      var closed = won + lost;
+      var el = document.getElementById('chartWinRate');
+
+      if (!closed) {
+        el.innerHTML = '<div class="big-figure" style="color:var(--muted)">&ndash;</div>' +
+          '<div class="figure-note">No closed leads yet. Mark requests as Won or Lost and this fills in.</div>';
+        return;
+      }
+
+      var pct = Math.round((won / closed) * 100);
+      el.innerHTML =
+        '<div class="big-figure" style="color:var(--green)">' + pct + '%</div>' +
+        '<div class="figure-note">' + won + ' won, ' + lost + ' lost, out of ' + closed + ' closed.</div>' +
+        '<div class="split-track">' +
+          '<div class="split-won" style="width:' + pct + '%"></div>' +
+          '<div class="split-lost" style="width:' + (100 - pct) + '%"></div>' +
+        '</div>' +
+        '<div class="legend">' +
+          '<span><i style="background:var(--green)"></i>Won</span>' +
+          '<span><i style="background:var(--red)"></i>Lost</span>' +
+        '</div>';
+    }
+
+    function renderAvgValue() {
+      var wins = allRows.filter(function (r) {
+        return r.status === 'won' && Number(r.quoted_amount) > 0;
+      });
+      var el = document.getElementById('chartAvgValue');
+
+      if (!wins.length) {
+        el.innerHTML = '<div class="big-figure" style="color:var(--muted)">&ndash;</div>' +
+          '<div class="figure-note">Add an amount to your won jobs and this fills in.</div>';
+        return;
+      }
+
+      var total = wins.reduce(function (t, r) { return t + Number(r.quoted_amount); }, 0);
+      var avg = Math.round(total / wins.length);
+      var amounts = wins.map(function (r) { return Number(r.quoted_amount); });
+
+      el.innerHTML =
+        '<div class="big-figure" style="color:var(--gold)">' + money(avg) + '</div>' +
+        '<div class="figure-note">Across ' + wins.length + ' won job' + (wins.length === 1 ? '' : 's') +
+        '. Total ' + money(total) + '.<br>Smallest ' + money(Math.min.apply(null, amounts)) +
+        ', largest ' + money(Math.max.apply(null, amounts)) + '.</div>';
     }
 
     searchEl.addEventListener('input', render);
