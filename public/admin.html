@@ -229,6 +229,31 @@
       margin-bottom: 14px;
     }
 
+    .work-area {
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      margin-bottom: 14px;
+    }
+    .amt-input { max-width: 200px; padding: 9px 12px; font-size: 14px; }
+    .note-input { resize: vertical; line-height: 1.5; }
+    .save-row { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+    .save-btn {
+      background: var(--gold-soft);
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      border-radius: 7px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .save-btn:hover { background: var(--gold); color: #111; }
+    .save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .save-flag { font-size: 13px; }
+    .save-flag.good { color: var(--green); }
+    .save-flag.bad { color: var(--red); }
+
     .card-actions {
       display: flex;
       gap: 10px;
@@ -304,6 +329,8 @@
         <div class="stat new"><div class="num" id="statNew">0</div><div class="lbl">New</div></div>
         <div class="stat"><div class="num" id="statQuoted">0</div><div class="lbl">Quoted</div></div>
         <div class="stat won"><div class="num" id="statWon">0</div><div class="lbl">Won</div></div>
+        <div class="stat won"><div class="num" id="statWonValue">&#8358;0</div><div class="lbl">Won value</div></div>
+        <div class="stat"><div class="num" id="statPipeline">&#8358;0</div><div class="lbl">Open pipeline</div></div>
       </div>
 
       <div class="toolbar">
@@ -426,6 +453,20 @@
       document.getElementById('statNew').textContent = count('new');
       document.getElementById('statQuoted').textContent = count('quoted');
       document.getElementById('statWon').textContent = count('won');
+
+      var sum = function (statuses) {
+        return allRows.reduce(function (t, r) {
+          var s = r.status || 'new';
+          if (statuses.indexOf(s) === -1) return t;
+          return t + (Number(r.quoted_amount) || 0);
+        }, 0);
+      };
+      document.getElementById('statWonValue').textContent = money(sum(['won']));
+      document.getElementById('statPipeline').textContent = money(sum(['new', 'quoted']));
+    }
+
+    function money(n) {
+      return '\u20A6' + Number(n || 0).toLocaleString('en-NG');
     }
 
     function render() {
@@ -472,12 +513,64 @@
             '</div>' +
             '<div class="grid-info">' + info + '</div>' +
             (r.message ? '<div class="details-box">' + esc(r.message) + '</div>' : '') +
+            '<div class="work-area">' +
+              '<div class="amount-row">' +
+                '<div>' +
+                  '<div class="info-lbl">Amount quoted (&#8358;)</div>' +
+                  '<input type="number" class="amt-input" data-id="' + r.id + '" value="' + (r.quoted_amount == null ? '' : esc(r.quoted_amount)) + '" placeholder="0" />' +
+                '</div>' +
+              '</div>' +
+              '<div class="info-lbl" style="margin-top:12px">Your notes</div>' +
+              '<textarea class="note-input" data-id="' + r.id + '" rows="2" placeholder="e.g. Called 5pm, wants delivery Friday...">' + esc(r.notes) + '</textarea>' +
+              '<div class="save-row">' +
+                '<button class="save-btn" data-id="' + r.id + '">Save</button>' +
+                '<span class="save-flag" data-flag="' + r.id + '"></span>' +
+              '</div>' +
+            '</div>' +
             '<div class="card-actions">' +
               '<select data-id="' + r.id + '" class="status-select">' + opts + '</select>' +
               (wa ? '<a class="wa-btn" href="' + wa + '" target="_blank" rel="noopener">WhatsApp</a>' : '') +
             '</div>' +
           '</div>';
       }).join('');
+
+      var saveBtns = cardsEl.querySelectorAll('.save-btn');
+      for (var k = 0; k < saveBtns.length; k++) {
+        saveBtns[k].addEventListener('click', function () {
+          var id = this.getAttribute('data-id');
+          var btn = this;
+          var amtEl = cardsEl.querySelector('.amt-input[data-id="' + id + '"]');
+          var noteEl = cardsEl.querySelector('.note-input[data-id="' + id + '"]');
+          var flag = cardsEl.querySelector('.save-flag[data-flag="' + id + '"]');
+          var amt = amtEl.value.trim();
+
+          btn.disabled = true;
+          btn.textContent = 'Saving...';
+
+          sb.from('quote_requests').update({
+            quoted_amount: amt === '' ? null : Number(amt),
+            notes: noteEl.value
+          }).eq('id', id).then(function (res) {
+            btn.disabled = false;
+            btn.textContent = 'Save';
+            if (res.error) {
+              flag.className = 'save-flag bad';
+              flag.textContent = res.error.message;
+              return;
+            }
+            for (var j = 0; j < allRows.length; j++) {
+              if (allRows[j].id === id) {
+                allRows[j].quoted_amount = amt === '' ? null : Number(amt);
+                allRows[j].notes = noteEl.value;
+              }
+            }
+            flag.className = 'save-flag good';
+            flag.textContent = 'Saved';
+            updateStats();
+            setTimeout(function () { flag.textContent = ''; }, 2500);
+          });
+        });
+      }
 
       var selects = cardsEl.querySelectorAll('.status-select');
       for (var i = 0; i < selects.length; i++) {
