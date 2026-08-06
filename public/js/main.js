@@ -92,87 +92,58 @@ window.onload = function() {
   if (blogGrid) {
     var blogPosts = [
       {
-        img: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=600&q=80",
-        cat: "Design Tips",
-        title: "5 Print Finishes That Make Your Brand Unforgettable",
-        excerpt: "From soft-touch lamination to UV spot varnish - the right finish takes your print from ordinary to premium.",
-        date: "May 2025", time: "4 min read",
-        content: "<p>When most people think about printing, they think about paper and colours. But experienced designers know the finish is what separates a forgettable flyer from something people actually keep.</p><h3>1. Soft-Touch Lamination</h3><p>Also called velvet lamination, this gives your print a smooth, matte feel that is almost fabric-like. It communicates luxury without saying a word. Perfect for business cards and brochures.</p><h3>2. UV Spot Varnish</h3><p>Apply gloss selectively while the rest stays matte. The contrast grabs attention and creates a tactile surprise.</p><h3>3. Foil Stamping</h3><p>Gold, silver, rose gold, holographic - foil makes any design feel premium. Ideal for wedding stationery, certificates, and luxury packaging.</p><h3>4. Embossing and Debossing</h3><p>Raise or sink elements into the paper for a 3D tactile effect. Often combined with foil for maximum impact.</p><h3>5. Aqueous Coating</h3><p>A water-based protective coating that is both durable and eco-friendly. Great for high-volume flyers and catalogues.</p><p>Ready to upgrade your next print job? Chat with us on WhatsApp and let us pick the right finish for your brand.</p>"
+        img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80",
+        cat: "Pricing",
+        title: "How Much Does Printing Cost in Lagos?",
+        excerpt: "A plain-English 2026 price guide - what things cost, what changes the price, and where people waste money.",
+        date: "Aug 2026", time: "7 min read",
+        url: "/blog/printing-cost-lagos"
       },
       {
-        img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80",
-        cat: "Guides",
-        title: "How to Prepare Your File for Print",
-        excerpt: "CMYK vs RGB, bleed, resolution - everything you need before sending your artwork to the printer.",
-        date: "Apr 2025", time: "6 min read",
-        content: "<p>Nothing kills a beautiful design faster than sending the wrong file to the printer. Here is a checklist we give every new client.</p><h3>CMYK, Not RGB</h3><p>Your screen uses RGB light. Printers use CMYK ink. Always convert your file to CMYK before sending, otherwise colours can shift dramatically.</p><h3>300 DPI Minimum</h3><p>Screen resolution will print blurry. Set your document to at least 300 dpi from the start.</p><h3>Add Bleed</h3><p>Bleed is an extra 3mm around every edge. It ensures no white borders appear after trimming.</p><h3>Outline Your Fonts</h3><p>If your printer does not have the same fonts, text will reflow. Convert all text to outlines before saving.</p><h3>Preferred File Formats</h3><p>Press-ready PDF is the gold standard. AI and EPS also work well. Avoid JPEGs for precise colour work.</p><p>Still unsure? Send us your file and we will check it for free before printing.</p>"
-      },
-      {
-        img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&q=80",
-        cat: "Marketing",
-        title: "Branded Merch That Actually Gets Used",
-        excerpt: "The psychology behind branded merchandise people keep - and the ones that end up in the bin.",
-        date: "Mar 2025", time: "5 min read",
-        content: "<p>Every year, businesses spend billions on branded merchandise that ends up in a bin. The ones that do not follow a simple rule: utility first.</p><h3>Give People Something They Will Use</h3><p>Tote bags, water bottles, notebooks - people keep things that serve a daily function. A beautifully printed notebook with your logo lives on a desk for months.</p><h3>Quality Signals Value</h3><p>A cheap, flimsy t-shirt with a cracked print communicates the opposite of what you intend. Invest in quality. People associate the quality of your merch with the quality of your service.</p><h3>Less Logo, More Personality</h3><p>The best branded merch feels like something people would choose to wear even without the brand. Use your brand colours and a subtle logo.</p><h3>Think About Your Audience</h3><p>A tech startup gifts AirPods cases. A food brand gifts aprons. Match the merch to the lifestyle of your customer.</p><p>We produce everything from custom tote bags to branded packaging - let us talk about what works for your brand.</p>"
+        img: "https://images.unsplash.com/photo-1591189863430-ab87e120f312?w=600&q=80",
+        cat: "Pricing",
+        title: "Roll-Up Banner Prices in Lagos",
+        excerpt: "What you should actually pay, what separates a cheap stand from a good one, and the design mistakes that ruin banners.",
+        date: "Aug 2026", time: "6 min read",
+        url: "/blog/roll-up-banner-prices-lagos"
       },
       {
         img: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80",
         cat: "Guides",
-        title: "Choosing the Right Paper for Your Print Job",
-        excerpt: "GSM, finish, texture - a simple guide to picking the perfect paper stock for any project.",
-        date: "Feb 2025", time: "5 min read",
-        content: "<p>The paper you choose says as much about your brand as the design printed on it. Here is how to choose right.</p><h3>Understanding GSM</h3><p>GSM means grams per square metre - basically how thick and heavy the paper is. A flyer might use 130gsm, while a premium business card uses 350gsm or more. Higher GSM feels more substantial and premium.</p><h3>Matte vs Gloss</h3><p>Gloss paper makes colours pop and works great for vibrant photos. Matte paper is easier to read and feels more sophisticated. Your choice depends on the mood you want.</p><h3>Textured Stocks</h3><p>Linen, felt, and laid paper add a tactile premium feel. Perfect for wedding invitations and luxury branding.</p><h3>Recycled Options</h3><p>Eco-conscious brands can choose recycled stocks that look great and tell a sustainability story.</p><p>Not sure which to pick? We will show you samples before printing so you feel confident in your choice.</p>"
+        title: "Business Card Paper Guide",
+        excerpt: "GSM explained, matte versus gloss, and when lamination is genuinely worth paying for.",
+        date: "Aug 2026", time: "6 min read",
+        url: "/blog/business-card-paper-guide"
       },
       {
-        img: "https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=600&q=80",
-        cat: "Marketing",
-        title: "Why Every Lagos Business Needs Professional Signage",
-        excerpt: "Your signage is a 24/7 salesperson. Here is how to make it work harder for your brand.",
-        date: "Jan 2025", time: "4 min read",
-        content: "<p>In a busy city like Lagos, your signage is often the first thing a customer sees. Make it count.</p><h3>First Impressions Matter</h3><p>A clean, professional sign tells customers you are serious and trustworthy. A faded or cheap-looking sign does the opposite, no matter how good your service is.</p><h3>Visibility Is Everything</h3><p>Bold colours, clear fonts, and the right size mean people notice you from across the street or in heavy traffic. We design signage that gets seen.</p><h3>Built to Last</h3><p>Lagos weather is tough. We use durable, weather-resistant materials so your sign looks sharp through rain and sun.</p><h3>Consistent Branding</h3><p>Your signage should match your business cards, flyers, and online presence. Consistency builds recognition and trust.</p><p>From shop fronts to event backdrops, we produce signage that makes your brand impossible to miss.</p>"
+        img: "https://images.unsplash.com/photo-1506784365847-bbad939e9335?w=600&q=80",
+        cat: "Guides",
+        title: "How Long Does Printing Take in Lagos?",
+        excerpt: "Realistic turnaround times by product, what causes delays, and how to plan backwards from an event date.",
+        date: "Aug 2026", time: "5 min read",
+        url: "/blog/printing-turnaround-lagos"
       },
       {
-        img: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=600&q=80",
-        cat: "Design Tips",
-        title: "The Power of Consistent Brand Colours in Print",
-        excerpt: "Why getting your brand colours right across every print matters more than you think.",
-        date: "Dec 2024", time: "4 min read",
-        content: "<p>Strong brands are instantly recognisable by their colours alone. Think of the big names - you know them by colour before you even read the name.</p><h3>Colour Builds Recognition</h3><p>When your business cards, flyers, banners, and packaging all use the same exact colours, customers start to recognise you instantly. That recognition builds trust over time.</p><h3>The CMYK Challenge</h3><p>Colours on your screen do not always match printed colours. We use professional colour management so your brand red stays your brand red, every single time.</p><h3>Pantone Matching</h3><p>For brands that need exact colour every time, we offer Pantone spot colour matching - the same system global brands use.</p><h3>Consistency Across Materials</h3><p>Different papers absorb ink differently. Our experience ensures your colours stay consistent whether on a glossy flyer or a matte business card.</p><p>Want your brand to look consistent everywhere? Let us handle your colour management.</p>"
+        img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&q=80",
+        cat: "Guides",
+        title: "DTF, Screen Printing or Vinyl?",
+        excerpt: "The four ways to print a t-shirt, which suits which job, and why some prints crack after three washes.",
+        date: "Aug 2026", time: "6 min read",
+        url: "/blog/t-shirt-printing-methods-lagos"
       }
     ];
 
     var html = "";
     for (var i = 0; i < blogPosts.length; i++) {
       var p = blogPosts[i];
-      html += '<article class="blog-card fade-in-up" data-blog="' + i + '">';
+      html += '<a class="blog-card fade-in-up" href="' + p.url + '" style="text-decoration:none;color:inherit;display:block;">';
       html += '<div class="blog-thumb" style="background-image:url(\'' + p.img + '\');background-size:cover;background-position:center;">';
       html += '<span class="blog-cat">' + p.cat + '</span></div>';
       html += '<div class="blog-body"><div class="blog-meta"><span>' + p.date + '</span><span>&middot;</span><span>' + p.time + '</span></div>';
       html += '<h3>' + p.title + '</h3><p>' + p.excerpt + '</p>';
-      html += '<span class="blog-read-more">Read more &rarr;</span></div></article>';
+      html += '<span class="blog-read-more">Read more &rarr;</span></div></a>';
     }
     blogGrid.innerHTML = html;
-
-    var cards = document.querySelectorAll(".blog-card[data-blog]");
-    cards.forEach(function(card) {
-      card.addEventListener("click", function() {
-        var post = blogPosts[card.dataset.blog];
-        var overlay = document.createElement("div");
-        overlay.className = "blog-modal-overlay";
-        var modal = '<div class="blog-modal"><div class="blog-modal-header"><div>';
-        modal += '<span class="section-tag">' + post.cat + '</span>';
-        modal += '<h3 style="margin-top:0.5rem">' + post.title + '</h3>';
-        modal += '<div class="blog-meta" style="margin-top:0.5rem">' + post.date + ' &middot; ' + post.time + '</div></div>';
-        modal += '<button class="blog-modal-close" aria-label="Close">&times;</button></div>';
-        modal += '<div class="blog-modal-content">' + post.content + '</div></div>';
-        overlay.innerHTML = modal;
-        document.body.appendChild(overlay);
-        document.body.style.overflow = "hidden";
-        function closeModal() { overlay.remove(); document.body.style.overflow = ""; }
-        overlay.querySelector(".blog-modal-close").addEventListener("click", closeModal);
-        overlay.addEventListener("click", function(e) { if (e.target === overlay) closeModal(); });
-      });
-    });
   }
 
   // Scroll animations
