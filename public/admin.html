@@ -315,6 +315,77 @@
 
     .no-data { color: var(--muted); font-size: 13px; padding: 14px 0; }
 
+    /* ---------- Quote builder ---------- */
+    .modal-back {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+      z-index: 100;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 30px 16px;
+      overflow-y: auto;
+    }
+    .modal {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      width: 100%;
+      max-width: 720px;
+      padding: 26px;
+    }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .modal-head h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; }
+    .modal-close {
+      background: none; border: none; color: var(--muted);
+      font-size: 26px; cursor: pointer; line-height: 1; padding: 0 4px;
+    }
+    .modal-close:hover { color: var(--text); }
+
+    .li-row {
+      display: grid;
+      grid-template-columns: 1fr 74px 116px 34px;
+      gap: 8px;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+    .li-head {
+      display: grid;
+      grid-template-columns: 1fr 74px 116px 34px;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .li-head span {
+      font-size: 11px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    .li-row input { padding: 9px 11px; font-size: 14px; }
+    .li-del {
+      background: none; border: 1px solid var(--line); color: var(--muted);
+      border-radius: 6px; cursor: pointer; font-size: 17px; line-height: 1; padding: 7px 0;
+    }
+    .li-del:hover { border-color: var(--red); color: var(--red); }
+
+    .q-total {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--line); margin-top: 16px; padding-top: 16px;
+    }
+    .q-total .lbl { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+    .q-total .amt { font-family: 'Space Grotesk', sans-serif; font-size: 27px; font-weight: 700; color: var(--gold); }
+
+    .modal-actions { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
+
+    @media (max-width: 560px) {
+      .li-row, .li-head { grid-template-columns: 1fr 58px 92px 30px; }
+      .modal { padding: 20px 16px; }
+    }
+
     .card-actions {
       display: flex;
       gap: 10px;
@@ -615,12 +686,23 @@
             '</div>' +
             '<div class="card-actions">' +
               '<select data-id="' + r.id + '" class="status-select">' + opts + '</select>' +
+              '<button class="save-btn quote-btn" data-id="' + r.id + '">Create Quote</button>' +
               (wa ? '<a class="wa-btn" href="' + wa + '" target="_blank" rel="noopener">WhatsApp</a>' : '') +
             '</div>' +
           '</div>';
       }).join('');
 
-      var saveBtns = cardsEl.querySelectorAll('.save-btn');
+      var quoteBtns = cardsEl.querySelectorAll('.quote-btn');
+      for (var q = 0; q < quoteBtns.length; q++) {
+        quoteBtns[q].addEventListener('click', function () {
+          var id = this.getAttribute('data-id');
+          for (var j = 0; j < allRows.length; j++) {
+            if (allRows[j].id === id) { openQuote(allRows[j]); return; }
+          }
+        });
+      }
+
+      var saveBtns = cardsEl.querySelectorAll('.save-btn:not(.quote-btn)');
       for (var k = 0; k < saveBtns.length; k++) {
         saveBtns[k].addEventListener('click', function () {
           var id = this.getAttribute('data-id');
@@ -679,6 +761,244 @@
           });
         });
       }
+    }
+
+    /* ---------- Quote builder ---------- */
+    var quoteRow = null;
+
+    function quoteRef() {
+      var d = new Date();
+      var y = String(d.getFullYear()).slice(2);
+      var m = ('0' + (d.getMonth() + 1)).slice(-2);
+      var day = ('0' + d.getDate()).slice(-2);
+      var rnd = ('00' + Math.floor(Math.random() * 999)).slice(-3);
+      return 'ABX-' + y + m + day + '-' + rnd;
+    }
+
+    function openQuote(row) {
+      quoteRow = row;
+
+      var back = document.createElement('div');
+      back.className = 'modal-back';
+      back.innerHTML =
+        '<div class="modal">' +
+          '<div class="modal-head">' +
+            '<h2>Quote for ' + esc(row.name) + '</h2>' +
+            '<button class="modal-close" aria-label="Close">&times;</button>' +
+          '</div>' +
+
+          '<div class="field">' +
+            '<label>Quote reference</label>' +
+            '<input type="text" id="qRef" value="' + quoteRef() + '" />' +
+          '</div>' +
+
+          '<label>Items</label>' +
+          '<div class="li-head">' +
+            '<span>Description</span><span>Qty</span><span>Unit price &#8358;</span><span></span>' +
+          '</div>' +
+          '<div id="qItems"></div>' +
+          '<button class="ghost" id="qAdd" style="margin-top:6px">+ Add item</button>' +
+
+          '<div class="q-total">' +
+            '<span class="lbl">Total</span>' +
+            '<span class="amt" id="qTotal">&#8358;0</span>' +
+          '</div>' +
+
+          '<div class="field" style="margin-top:18px">' +
+            '<label>Notes / terms (optional)</label>' +
+            '<textarea id="qNotes" rows="2" placeholder="e.g. 70% deposit to begin. Delivery within Lagos included."></textarea>' +
+          '</div>' +
+
+          '<div class="field">' +
+            '<label>Valid for</label>' +
+            '<select id="qValid">' +
+              '<option value="7">7 days</option>' +
+              '<option value="14" selected>14 days</option>' +
+              '<option value="30">30 days</option>' +
+            '</select>' +
+          '</div>' +
+
+          '<div class="modal-actions">' +
+            '<button class="primary" id="qPrint" style="width:auto;padding:12px 22px">Download PDF</button>' +
+            '<button class="ghost" id="qSave">Save amount to lead</button>' +
+          '</div>' +
+        '</div>';
+
+      document.body.appendChild(back);
+
+      var itemsEl = back.querySelector('#qItems');
+      var totalEl = back.querySelector('#qTotal');
+
+      function recalc() {
+        var t = 0;
+        var rows = itemsEl.querySelectorAll('.li-row');
+        for (var i = 0; i < rows.length; i++) {
+          var qty = Number(rows[i].querySelector('.li-qty').value) || 0;
+          var price = Number(rows[i].querySelector('.li-price').value) || 0;
+          t += qty * price;
+        }
+        totalEl.textContent = money(t);
+        return t;
+      }
+
+      function addItem(desc, qty, price) {
+        var row = document.createElement('div');
+        row.className = 'li-row';
+        row.innerHTML =
+          '<input type="text" class="li-desc" value="' + esc(desc || '') + '" placeholder="e.g. 500 business cards, 350gsm matte" />' +
+          '<input type="number" class="li-qty" value="' + (qty || 1) + '" min="0" />' +
+          '<input type="number" class="li-price" value="' + (price || '') + '" min="0" placeholder="0" />' +
+          '<button class="li-del" aria-label="Remove">&times;</button>';
+        itemsEl.appendChild(row);
+        row.querySelector('.li-del').addEventListener('click', function () {
+          row.remove();
+          recalc();
+        });
+        var ins = row.querySelectorAll('input');
+        for (var k = 0; k < ins.length; k++) ins[k].addEventListener('input', recalc);
+      }
+
+      addItem(row.service ? row.service + (row.quantity ? ' \u2014 ' + row.quantity : '') : '', 1, '');
+      recalc();
+
+      back.querySelector('#qAdd').addEventListener('click', function () {
+        addItem('', 1, '');
+      });
+
+      function close() { back.remove(); quoteRow = null; }
+      back.querySelector('.modal-close').addEventListener('click', close);
+      back.addEventListener('click', function (e) { if (e.target === back) close(); });
+
+      back.querySelector('#qSave').addEventListener('click', function () {
+        var t = recalc();
+        var btn = this;
+        btn.disabled = true;
+        btn.textContent = 'Saving...';
+        sb.from('quote_requests')
+          .update({ quoted_amount: t, status: 'quoted' })
+          .eq('id', row.id)
+          .then(function (res) {
+            btn.disabled = false;
+            btn.textContent = 'Save amount to lead';
+            if (res.error) { alert('Could not save: ' + res.error.message); return; }
+            row.quoted_amount = t;
+            row.status = 'quoted';
+            updateStats();
+            render();
+            btn.textContent = 'Saved';
+          });
+      });
+
+      back.querySelector('#qPrint').addEventListener('click', function () {
+        var items = [];
+        var rws = itemsEl.querySelectorAll('.li-row');
+        for (var i = 0; i < rws.length; i++) {
+          var d = rws[i].querySelector('.li-desc').value.trim();
+          var qy = Number(rws[i].querySelector('.li-qty').value) || 0;
+          var pr = Number(rws[i].querySelector('.li-price').value) || 0;
+          if (d || pr) items.push({ desc: d, qty: qy, price: pr });
+        }
+        if (!items.length) { alert('Add at least one item first.'); return; }
+
+        printQuote({
+          ref: back.querySelector('#qRef').value.trim(),
+          notes: back.querySelector('#qNotes').value.trim(),
+          valid: back.querySelector('#qValid').value,
+          customer: row,
+          items: items,
+          total: recalc()
+        });
+      });
+    }
+
+    function printQuote(q) {
+      var today = new Date();
+      var expiry = new Date(today.getTime() + Number(q.valid) * 86400000);
+      var fmt = function (d) {
+        return d.toLocaleDateString('en-NG', { day: 'numeric', month: 'long', year: 'numeric' });
+      };
+
+      var rows = q.items.map(function (i) {
+        return '<tr>' +
+          '<td>' + esc(i.desc) + '</td>' +
+          '<td class="c">' + i.qty + '</td>' +
+          '<td class="r">' + money(i.price) + '</td>' +
+          '<td class="r">' + money(i.qty * i.price) + '</td>' +
+          '</tr>';
+      }).join('');
+
+      var html =
+'<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Quote ' + esc(q.ref) + '</title>' +
+'<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />' +
+'<style>' +
+'*{box-sizing:border-box;margin:0;padding:0}' +
+'body{font-family:Inter,system-ui,sans-serif;color:#15151d;padding:44px;max-width:800px;margin:0 auto;font-size:14px;line-height:1.6}' +
+'.top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #c9a227;padding-bottom:20px;margin-bottom:26px}' +
+'.biz h1{font-family:"Space Grotesk",sans-serif;font-size:23px;margin-bottom:6px}' +
+'.biz p{font-size:12.5px;color:#555;line-height:1.55}' +
+'.doc{text-align:right}' +
+'.doc h2{font-family:"Space Grotesk",sans-serif;font-size:27px;letter-spacing:.06em;color:#c9a227;margin-bottom:6px}' +
+'.doc p{font-size:12.5px;color:#555}' +
+'.to{margin-bottom:26px}' +
+'.lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:#888;margin-bottom:5px}' +
+'.to strong{font-family:"Space Grotesk",sans-serif;font-size:17px}' +
+'.to p{font-size:13px;color:#555}' +
+'table{width:100%;border-collapse:collapse;margin-bottom:22px}' +
+'th{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:#666;text-align:left;padding:9px 10px;border-bottom:2px solid #ddd}' +
+'td{padding:12px 10px;border-bottom:1px solid #eee;vertical-align:top}' +
+'.c{text-align:center}.r{text-align:right}' +
+'th.c{text-align:center}th.r{text-align:right}' +
+'.tot{display:flex;justify-content:flex-end;margin-bottom:30px}' +
+'.tot-box{min-width:250px}' +
+'.tot-row{display:flex;justify-content:space-between;padding:11px 10px;font-family:"Space Grotesk",sans-serif;font-size:19px;font-weight:700;background:#faf7ee;border-top:2px solid #c9a227}' +
+'.notes{background:#f7f7f7;border-radius:8px;padding:16px 18px;margin-bottom:22px;font-size:13px}' +
+'.foot{border-top:1px solid #ddd;padding-top:18px;font-size:12px;color:#666;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}' +
+'@media print{body{padding:0}@page{margin:16mm}}' +
+'</style></head><body>' +
+
+'<div class="top">' +
+  '<div class="biz">' +
+    '<h1>Abidexpro Printz</h1>' +
+    '<p>26 Awofeso Street, Shomolu, Lagos<br />' +
+    'WhatsApp 0706 092 7528 &middot; abidexprintz@gmail.com<br />' +
+    'abidexproprintz.com</p>' +
+  '</div>' +
+  '<div class="doc">' +
+    '<h2>QUOTE</h2>' +
+    '<p>' + esc(q.ref) + '<br />' + fmt(today) + '</p>' +
+  '</div>' +
+'</div>' +
+
+'<div class="to">' +
+  '<p class="lbl">Prepared for</p>' +
+  '<strong>' + esc(q.customer.name) + '</strong>' +
+  '<p>' + (q.customer.email ? esc(q.customer.email) : '') +
+  (q.customer.phone ? ' &middot; ' + esc(q.customer.phone) : '') + '</p>' +
+'</div>' +
+
+'<table>' +
+  '<tr><th>Description</th><th class="c">Qty</th><th class="r">Unit price</th><th class="r">Amount</th></tr>' +
+  rows +
+'</table>' +
+
+'<div class="tot"><div class="tot-box">' +
+  '<div class="tot-row"><span>Total</span><span>' + money(q.total) + '</span></div>' +
+'</div></div>' +
+
+(q.notes ? '<div class="notes"><p class="lbl">Notes</p>' + esc(q.notes) + '</div>' : '') +
+
+'<div class="foot">' +
+  '<span>This quote is valid until ' + fmt(expiry) + '.</span>' +
+  '<span>Thank you for your business.</span>' +
+'</div>' +
+
+'</body></html>';
+
+      var w = window.open('', '_blank');
+      if (!w) { alert('Please allow pop-ups to download the quote.'); return; }
+      w.document.write(html);
+      w.document.close();
+      setTimeout(function () { w.focus(); w.print(); }, 600);
     }
 
     /* ---------- CSV export ---------- */
