@@ -100,7 +100,7 @@ window.onload = function() {
         url: "/blog/printing-cost-lagos"
       },
       {
-        img: "https://images.unsplash.com/photo-1591189863430-ab87e120f312?w=600&q=80",
+        img: "images/pole-banners.jpg",
         cat: "Pricing",
         title: "Roll-Up Banner Prices in Lagos",
         excerpt: "What you should actually pay, what separates a cheap stand from a good one, and the design mistakes that ruin banners.",
