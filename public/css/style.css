@@ -2293,17 +2293,17 @@ ul { list-style: none; }
   width: 168px;
   height: 92px;
   object-fit: contain;
-  padding: 18px 22px;
-  background: #f7f5f0;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 14px;
-  filter: grayscale(100%);
-  opacity: 0.72;
+  padding: 0 26px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  filter: grayscale(100%) brightness(1.9) contrast(0.9);
+  opacity: 0.55;
   transition: filter 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
 }
 
 .logo-track img:hover {
-  filter: grayscale(0%);
+  filter: grayscale(0%) brightness(1) contrast(1);
   opacity: 1;
   transform: translateY(-3px);
 }
