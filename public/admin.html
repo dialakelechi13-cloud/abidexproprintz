@@ -379,6 +379,7 @@
         <span>Quote Requests</span>
       </div>
       <div class="bar-actions">
+        <button class="ghost" id="exportBtn">Export CSV</button>
         <button class="ghost" id="refreshBtn">Refresh</button>
         <button class="ghost" id="logoutBtn">Log out</button>
       </div>
@@ -679,6 +680,55 @@
         });
       }
     }
+
+    /* ---------- CSV export ---------- */
+    document.getElementById('exportBtn').addEventListener('click', function () {
+      if (!allRows.length) {
+        alert('Nothing to export yet.');
+        return;
+      }
+
+      var cols = [
+        ['created_at', 'Date'],
+        ['name', 'Name'],
+        ['email', 'Email'],
+        ['phone', 'Phone'],
+        ['service', 'Service'],
+        ['quantity', 'Quantity'],
+        ['budget', 'Budget'],
+        ['message', 'Details'],
+        ['status', 'Status'],
+        ['quoted_amount', 'Amount quoted'],
+        ['notes', 'Notes']
+      ];
+
+      var cell = function (v) {
+        if (v == null) return '""';
+        return '"' + String(v).replace(/"/g, '""') + '"';
+      };
+
+      var lines = [cols.map(function (c) { return cell(c[1]); }).join(',')];
+
+      allRows.forEach(function (r) {
+        lines.push(cols.map(function (c) {
+          var v = r[c[0]];
+          if (c[0] === 'created_at' && v) v = fmtDate(v);
+          if (c[0] === 'status') v = v || 'new';
+          return cell(v);
+        }).join(','));
+      });
+
+      var stamp = new Date().toISOString().slice(0, 10);
+      var blob = new Blob(['\uFEFF' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'abidexpro-leads-' + stamp + '.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    });
 
     /* ---------- Insights ---------- */
     var insightsEl = document.getElementById('insights');
