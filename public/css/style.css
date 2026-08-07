@@ -2252,3 +2252,74 @@ ul { list-style: none; }
   color: var(--green);
   font-weight: 500;
 }
+/* ============ Trusted-by logo strip — premium treatment ============ */
+.trusted {
+  padding: 54px 0 58px;
+}
+
+.trusted-label {
+  text-align: center;
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 34px;
+}
+
+/* fade the strip out at both edges */
+.logo-strip {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.logo-track {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: max-content;
+  animation-duration: 46s !important;
+  animation-timing-function: linear !important;
+}
+
+.logo-strip:hover .logo-track {
+  animation-play-state: paused;
+}
+
+.logo-track img {
+  flex: none;
+  width: 168px;
+  height: 92px;
+  object-fit: contain;
+  padding: 18px 22px;
+  background: #f7f5f0;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  filter: grayscale(100%);
+  opacity: 0.72;
+  transition: filter 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+}
+
+.logo-track img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+@media (max-width: 700px) {
+  .logo-track img {
+    width: 132px;
+    height: 76px;
+    padding: 14px 16px;
+    border-radius: 12px;
+  }
+  .logo-track { gap: 13px; }
+  .trusted { padding: 42px 0 46px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-track { animation: none !important; }
+  .logo-track img { filter: none; opacity: 1; }
+}
