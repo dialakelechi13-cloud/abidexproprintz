@@ -2382,7 +2382,9 @@ ul { list-style: none; }
   /* Get a Quote button back */
   .nav-links .nav-cta {
     display: block !important;
-    margin: 16px 24px 8px;
+    margin: 16px 24px 12px;
+    width: calc(100% - 48px) !important;
+    box-sizing: border-box;
     text-align: center;
     border-radius: 100px;
     padding: 14px 24px !important;
@@ -2395,9 +2397,12 @@ ul { list-style: none; }
   /* socials in a row */
   .nav-links li:has(> .nav-social) {
     display: inline-block;
+    width: auto !important;
     border-bottom: none;
-    padding-left: 24px;
+    padding: 0 0 0 12px;
   }
+
+  .nav-links li:has(> .nav-social):first-of-type { padding-left: 24px; }
 
   .nav-links .nav-social {
     width: 40px;
