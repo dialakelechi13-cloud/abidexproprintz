@@ -618,6 +618,69 @@
       return 'https://wa.me/' + p;
     }
 
+    function firstName(full) {
+      return String(full || '').trim().split(/\s+/)[0] || 'there';
+    }
+
+    function leadWaLink(r) {
+      var base = waLink(r.phone);
+      if (!base) return null;
+      var msg;
+      var status = r.status || 'new';
+
+      if (status === 'quoted') {
+        msg = 'Hi ' + firstName(r.name) + ', just following up on the quote we sent you' +
+              (r.service ? ' for ' + r.service : '') +
+              '. Let us know if you have any questions or would like to go ahead.';
+      } else if (status === 'won') {
+        msg = 'Hi ' + firstName(r.name) + ', thanks again for your order' +
+              (r.service ? ' for ' + r.service : '') + '. We will keep you updated on progress.';
+      } else {
+        msg = 'Hi ' + firstName(r.name) + ', thanks for your enquiry through our website' +
+              (r.service ? ' about ' + r.service : '') +
+              (r.quantity ? ' (' + r.quantity + ')' : '') +
+              '. Happy to help \u2014 here is the price for what you described:';
+      }
+      return base + '?text=' + encodeURIComponent(msg);
+    }
+
+    function orderWaLink(o) {
+      var base = waLink(o.phone);
+      if (!base) return null;
+
+      var link = 'https://abidexproprintz.com/track?ref=' + o.ref;
+      var name = firstName(o.customer_name);
+      var msg;
+
+      switch (o.status) {
+        case 'confirmed':
+          msg = 'Hi ' + name + ', your artwork for order ' + o.ref +
+                ' has been confirmed and is going to print. Track it here: ' + link;
+          break;
+        case 'printing':
+          msg = 'Hi ' + name + ', good news \u2014 order ' + o.ref +
+                ' is on the press now. Track it here: ' + link;
+          break;
+        case 'finishing':
+          msg = 'Hi ' + name + ', order ' + o.ref +
+                ' is printed and now in finishing. Almost there. Track it here: ' + link;
+          break;
+        case 'ready':
+          msg = 'Hi ' + name + ', order ' + o.ref +
+                ' is ready. You can collect from 26 Awofeso Street, Shomolu, or let us know if you would like it delivered.';
+          break;
+        case 'delivered':
+          msg = 'Hi ' + name + ', order ' + o.ref +
+                ' is complete. Thank you for your business \u2014 we would really appreciate a Google review if you were happy with it.';
+          break;
+        default:
+          msg = 'Hi ' + name + ', we have received your order ' + o.ref +
+                (o.description ? ' (' + o.description + ')' : '') +
+                '. Track it any time here: ' + link;
+      }
+      return base + '?text=' + encodeURIComponent(msg);
+    }
+
     /* ---------- Auth ---------- */
     function doLogin() {
       var email = document.getElementById('email').value.trim();
@@ -721,7 +784,7 @@
 
       cardsEl.innerHTML = rows.map(function (r) {
         var status = r.status || 'new';
-        var wa = waLink(r.phone);
+        var wa = leadWaLink(r);
 
         var info = '';
         info += '<div><div class="info-lbl">Service</div><div class="info-val">' + (esc(r.service) || '&mdash;') + '</div></div>';
@@ -922,7 +985,7 @@
         var opts = ORDER_STAGES.map(function (s) {
           return '<option value="' + s[0] + '"' + (s[0] === o.status ? ' selected' : '') + '>' + s[1] + '</option>';
         }).join('');
-        var wa = waLink(o.phone);
+        var wa = orderWaLink(o);
 
         return '<div class="card">' +
           '<div class="card-top">' +
