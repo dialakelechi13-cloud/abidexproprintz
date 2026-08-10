@@ -32,7 +32,12 @@ window.onload = function() {
       hamburger.classList.toggle("open", open);
     });
     navLinks.querySelectorAll("a").forEach(function(a) {
-      a.addEventListener("click", function() {
+      a.addEventListener("click", function(e) {
+        if (a.classList.contains("nav-dropdown-toggle") && window.innerWidth <= 768) {
+          e.preventDefault();
+          a.closest(".nav-dropdown").classList.toggle("expanded");
+          return;
+        }
         navLinks.classList.remove("open");
         hamburger.classList.remove("open");
       });
@@ -208,16 +213,4 @@ window.onload = function() {
     });
   });
 
-};// Mobile: tap Services to expand/collapse
-(function () {
-  var toggle = document.querySelector('.nav-dropdown-toggle');
-  var parent = document.querySelector('.nav-dropdown');
-  if (!toggle || !parent) return;
-
-  toggle.addEventListener('click', function (e) {
-    if (window.innerWidth <= 768) {
-      e.preventDefault();
-      parent.classList.toggle('expanded');
-    }
-  });
-})();
+};
