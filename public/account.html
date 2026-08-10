@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MDFP533Z8W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MDFP533Z8W');
+</script>
+
+<title>My Orders | Abidexpro Printz Lagos</title>
+<meta name="description" content="Sign in to see all your printing orders with Abidexpro Printz Lagos." />
+<link rel="canonical" href="https://abidexproprintz.com/account" />
+<meta name="robots" content="noindex, follow" />
+
+<link rel="icon" type="image/png" href="/images/Abidex_Logo_updated.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --ink:#0d0d12; --panel:#15151d; --panel-2:#1c1c26;
+    --line:rgba(212,175,55,.18); --gold:#d4af37; --gold-soft:#e8c874;
+    --cream:#f5f1e8; --muted:#a2a0ac; --wa:#25d366;
+    --green:#3fb950; --red:#f85149; --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--ink);color:var(--cream);line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;line-height:1.15;font-weight:600}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:680px;margin:0 auto;padding:0 22px}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(13,13,18,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px;max-width:1080px;margin:0 auto;padding:0 22px;gap:14px}
+  .brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.12rem;display:flex;align-items:center;gap:9px}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+  .nav-home{color:var(--muted);font-size:.9rem}
+  .nav-home:hover{color:var(--cream)}
+
+  .hero{padding:56px 0 26px;text-align:center}
+  .eyebrow{font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:.22em;font-size:.72rem;font-weight:600;color:var(--gold);display:inline-block;margin-bottom:13px}
+  .hero h1{font-size:clamp(1.8rem,4.6vw,2.5rem);margin-bottom:10px}
+  .hero p{color:var(--muted);max-width:44ch;margin:0 auto}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;margin-bottom:16px}
+
+  .tabs{display:flex;gap:6px;margin-bottom:22px}
+  .tab{flex:1;background:var(--panel-2);border:1px solid var(--line);color:var(--muted);
+       font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.92rem;
+       padding:11px;border-radius:10px;cursor:pointer;transition:.2s}
+  .tab.on{background:rgba(212,175,55,.12);border-color:var(--gold);color:var(--gold)}
+
+  label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:7px;font-weight:600}
+  input{width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--cream);
+        border-radius:10px;padding:13px 15px;font-size:1rem;font-family:inherit;outline:none}
+  input:focus{border-color:var(--gold)}
+  .field{margin-bottom:16px}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;
+       font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.97rem;
+       padding:14px 24px;border-radius:10px;border:1px solid transparent;cursor:pointer;transition:.2s}
+  .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-soft));color:#241c00}
+  .btn-gold:hover{transform:translateY(-2px)}
+  .btn-gold:disabled{opacity:.55;cursor:not-allowed;transform:none}
+  .btn-ghost{background:transparent;border-color:var(--line);color:var(--muted);width:auto;padding:9px 16px;font-size:.87rem}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+  .btn-wa{background:var(--wa);color:#062b13;width:auto;padding:10px 18px;font-size:.88rem}
+
+  .msg{margin-top:16px;font-size:.93rem;text-align:center;min-height:20px}
+  .msg.err{color:#ffb3ae}
+  .msg.ok{color:var(--green)}
+
+  .link-row{text-align:center;margin-top:18px;color:var(--muted);font-size:.9rem}
+  .link-row a{color:var(--gold)}
+
+  .hidden{display:none !important}
+
+  /* orders */
+  .acct-bar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+  .acct-bar .who{font-size:.92rem;color:var(--muted)}
+  .acct-bar .who strong{color:var(--cream);font-family:'Space Grotesk',sans-serif}
+
+  .o-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:13px}
+  .o-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+  .o-ref{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.04em;color:var(--gold)}
+  .o-date{font-size:.83rem;color:var(--muted);margin-top:2px}
+  .pill{padding:5px 13px;border-radius:100px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:rgba(212,175,55,.14);color:var(--gold);white-space:nowrap}
+  .pill.done{background:rgba(63,185,80,.14);color:var(--green)}
+  .o-desc{background:var(--panel-2);border-radius:9px;padding:12px 14px;font-size:.93rem;color:#d8d5cc;margin-bottom:12px}
+
+  .bar{height:6px;background:var(--panel-2);border-radius:100px;overflow:hidden;margin-bottom:8px}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-soft));border-radius:100px;transition:width .4s}
+  .bar-fill.done{background:var(--green)}
+  .o-stage{font-size:.85rem;color:var(--muted)}
+  .o-note{font-size:.88rem;color:#cfcbc0;margin-top:8px;font-style:italic}
+
+  .empty{text-align:center;padding:48px 20px;color:var(--muted)}
+  .empty p{margin-bottom:16px}
+
+  footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:var(--muted);font-size:.84rem;margin-top:40px}
+
+  @media(max-width:560px){.hero{padding:38px 0 20px}.panel{padding:22px 18px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="/" class="brand"><span class="dot"></span>Abidexpro Printz</a>
+    <a href="/" class="nav-home">&larr; Back to home</a>
+  </div>
+</header>
+
+<!-- ============ AUTH ============ -->
+<div id="authView">
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Your Account</span>
+      <h1>See all your orders</h1>
+      <p>Create an account to keep track of every job you print with us.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="panel">
+      <div class="tabs">
+        <button class="tab on" id="tabLogin">Sign in</button>
+        <button class="tab" id="tabReg">Create account</button>
+      </div>
+
+      <!-- login -->
+      <div id="loginForm">
+        <div class="field"><label for="lEmail">Email</label><input type="email" id="lEmail" autocomplete="username" /></div>
+        <div class="field"><label for="lPass">Password</label><input type="password" id="lPass" autocomplete="current-password" /></div>
+        <button class="btn btn-gold" id="loginBtn">Sign in</button>
+        <div class="msg" id="loginMsg"></div>
+        <div class="link-row"><a href="#" id="forgotLink">Forgotten your password?</a></div>
+      </div>
+
+      <!-- register -->
+      <div id="regForm" class="hidden">
+        <div class="field"><label for="rName">Your name</label><input type="text" id="rName" placeholder="e.g. Uyiosa Okafor" /></div>
+        <div class="field"><label for="rEmail">Email</label><input type="email" id="rEmail" autocomplete="username" /></div>
+        <div class="field"><label for="rPass">Password</label><input type="password" id="rPass" autocomplete="new-password" placeholder="At least 8 characters" /></div>
+        <button class="btn btn-gold" id="regBtn">Create account</button>
+        <div class="msg" id="regMsg"></div>
+        <div class="link-row">Use the same email you gave us when ordering, so your jobs show up here.</div>
+      </div>
+    </div>
+
+    <div class="link-row">
+      Just want to check one order? <a href="/track">Track without an account</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ORDERS ============ -->
+<div id="ordersView" class="hidden">
+  <section class="hero" style="text-align:left;padding-bottom:14px">
+    <div class="wrap">
+      <div class="acct-bar">
+        <div>
+          <span class="eyebrow" style="margin-bottom:6px">Your Orders</span>
+          <div class="who">Signed in as <strong id="userEmail"></strong></div>
+        </div>
+        <button class="btn btn-ghost" id="logoutBtn">Sign out</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div id="orderList"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Abidexpro Printz &middot; 26 Awofeso Street, Shomolu, Lagos &middot; 0706 092 7528</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  var SUPABASE_URL = 'https://cgxyqznnffibcdqeuejs.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_EpEQIfK6Qs-FJhp8kwIsVA_QkFDC_vT';
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  var STAGES = [
+    ['received', 'Order received'],
+    ['confirmed', 'Artwork confirmed'],
+    ['printing', 'Printing'],
+    ['finishing', 'Finishing'],
+    ['ready', 'Ready'],
+    ['delivered', 'Delivered']
+  ];
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  }
+  function fmtDate(d) {
+    if (!d) return '';
+    return new Date(d).toLocaleDateString('en-NG', { day:'numeric', month:'short', year:'numeric' });
+  }
+
+  var authView = document.getElementById('authView');
+  var ordersView = document.getElementById('ordersView');
+  var loginForm = document.getElementById('loginForm');
+  var regForm = document.getElementById('regForm');
+  var tabLogin = document.getElementById('tabLogin');
+  var tabReg = document.getElementById('tabReg');
+
+  tabLogin.addEventListener('click', function () {
+    tabLogin.classList.add('on'); tabReg.classList.remove('on');
+    loginForm.classList.remove('hidden'); regForm.classList.add('hidden');
+  });
+  tabReg.addEventListener('click', function () {
+    tabReg.classList.add('on'); tabLogin.classList.remove('on');
+    regForm.classList.remove('hidden'); loginForm.classList.add('hidden');
+  });
+
+  /* ---------- Register ---------- */
+  var regBtn = document.getElementById('regBtn');
+  var regMsg = document.getElementById('regMsg');
+
+  regBtn.addEventListener('click', function () {
+    var name = document.getElementById('rName').value.trim();
+    var email = document.getElementById('rEmail').value.trim();
+    var pass = document.getElementById('rPass').value;
+
+    if (!email || !pass) { regMsg.className = 'msg err'; regMsg.textContent = 'Email and password are required.'; return; }
+    if (pass.length < 8) { regMsg.className = 'msg err'; regMsg.textContent = 'Password must be at least 8 characters.'; return; }
+
+    regBtn.disabled = true; regBtn.textContent = 'Creating...';
+    regMsg.textContent = '';
+
+    sb.auth.signUp({
+      email: email,
+      password: pass,
+      options: { data: { full_name: name }, emailRedirectTo: 'https://abidexproprintz.com/account' }
+    }).then(function (res) {
+      regBtn.disabled = false; regBtn.textContent = 'Create account';
+      if (res.error) { regMsg.className = 'msg err'; regMsg.textContent = res.error.message; return; }
+      regMsg.className = 'msg ok';
+      regMsg.textContent = 'Check your email to confirm your account, then sign in.';
+      if (typeof gtag === 'function') gtag('event', 'sign_up', { method: 'email' });
+    });
+  });
+
+  /* ---------- Login ---------- */
+  var loginBtn = document.getElementById('loginBtn');
+  var loginMsg = document.getElementById('loginMsg');
+
+  function doLogin() {
+    var email = document.getElementById('lEmail').value.trim();
+    var pass = document.getElementById('lPass').value;
+    if (!email || !pass) { loginMsg.className = 'msg err'; loginMsg.textContent = 'Enter your email and password.'; return; }
+
+    loginBtn.disabled = true; loginBtn.textContent = 'Signing in...';
+    loginMsg.textContent = '';
+
+    sb.auth.signInWithPassword({ email: email, password: pass }).then(function (res) {
+      loginBtn.disabled = false; loginBtn.textContent = 'Sign in';
+      if (res.error) { loginMsg.className = 'msg err'; loginMsg.textContent = res.error.message; return; }
+      showOrders();
+    });
+  }
+
+  loginBtn.addEventListener('click', doLogin);
+  document.getElementById('lPass').addEventListener('keydown', function (e) { if (e.key === 'Enter') doLogin(); });
+
+  document.getElementById('forgotLink').addEventListener('click', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('lEmail').value.trim();
+    if (!email) { loginMsg.className = 'msg err'; loginMsg.textContent = 'Enter your email above first, then click again.'; return; }
+    sb.auth.resetPasswordForEmail(email, { redirectTo: 'https://abidexproprintz.com/account' }).then(function (res) {
+      if (res.error) { loginMsg.className = 'msg err'; loginMsg.textContent = res.error.message; return; }
+      loginMsg.className = 'msg ok';
+      loginMsg.textContent = 'Password reset link sent. Check your email.';
+    });
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', function () {
+    sb.auth.signOut().then(function () { location.reload(); });
+  });
+
+  /* ---------- Orders ---------- */
+  function showOrders() {
+    authView.classList.add('hidden');
+    ordersView.classList.remove('hidden');
+
+    sb.auth.getUser().then(function (u) {
+      var email = u.data && u.data.user ? u.data.user.email : '';
+      document.getElementById('userEmail').textContent = email;
+      loadOrders();
+    });
+  }
+
+  function loadOrders() {
+    var el = document.getElementById('orderList');
+    el.innerHTML = '<div class="empty">Loading your orders...</div>';
+
+    sb.from('orders').select('*').order('created_at', { ascending: false }).then(function (res) {
+      if (res.error) {
+        el.innerHTML = '<div class="empty"><p>Could not load your orders.</p></div>';
+        return;
+      }
+      var rows = res.data || [];
+
+      if (!rows.length) {
+        el.innerHTML =
+          '<div class="empty">' +
+            '<p>No orders linked to this account yet.</p>' +
+            '<p style="font-size:.9rem">If you have placed an order, it may have been recorded under a different email. ' +
+            'Message us and we will link it up.</p>' +
+            '<a href="https://wa.me/2347060927528?text=Hi%20Abidexpro%20Printz%2C%20please%20link%20my%20orders%20to%20my%20account." class="btn btn-wa" target="_blank" rel="noopener">Message us on WhatsApp</a>' +
+          '</div>';
+        return;
+      }
+
+      el.innerHTML = rows.map(function (o) {
+        var idx = 0, label = 'Order received';
+        for (var i = 0; i < STAGES.length; i++) {
+          if (STAGES[i][0] === o.status) { idx = i; label = STAGES[i][1]; }
+        }
+        var pct = Math.round(((idx + 1) / STAGES.length) * 100);
+        var isDone = o.status === 'delivered';
+
+        return '<div class="o-card">' +
+          '<div class="o-top">' +
+            '<div>' +
+              '<div class="o-ref">' + esc(o.ref) + '</div>' +
+              '<div class="o-date">Placed ' + fmtDate(o.created_at) + '</div>' +
+            '</div>' +
+            '<span class="pill' + (isDone ? ' done' : '') + '">' + esc(label) + '</span>' +
+          '</div>' +
+          (o.description ? '<div class="o-desc">' + esc(o.description) + '</div>' : '') +
+          '<div class="bar"><div class="bar-fill' + (isDone ? ' done' : '') + '" style="width:' + pct + '%"></div></div>' +
+          '<div class="o-stage">Stage ' + (idx + 1) + ' of ' + STAGES.length +
+            (o.expected_date && !isDone ? ' &middot; expected ' + fmtDate(o.expected_date) : '') + '</div>' +
+          (o.status_note ? '<div class="o-note">' + esc(o.status_note) + '</div>' : '') +
+        '</div>';
+      }).join('');
+    });
+  }
+
+  /* stay signed in */
+  sb.auth.getSession().then(function (res) {
+    if (res.data && res.data.session) showOrders();
+  });
+</script>
+
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
