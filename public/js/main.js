@@ -208,4 +208,16 @@ window.onload = function() {
     });
   });
 
-};
+};// Mobile: tap Services to expand/collapse
+(function () {
+  var toggle = document.querySelector('.nav-dropdown-toggle');
+  var parent = document.querySelector('.nav-dropdown');
+  if (!toggle || !parent) return;
+
+  toggle.addEventListener('click', function (e) {
+    if (window.innerWidth <= 768) {
+      e.preventDefault();
+      parent.classList.toggle('expanded');
+    }
+  });
+})();
