@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MDFP533Z8W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MDFP533Z8W');
+</script>
+
+<title>Track Your Order | Abidexpro Printz Lagos</title>
+<meta name="description" content="Track your printing order with Abidexpro Printz. Enter your order reference to see the current status of your job." />
+<link rel="canonical" href="https://abidexproprintz.com/track" />
+<meta name="robots" content="noindex, follow" />
+
+<link rel="icon" type="image/png" href="/images/Abidex_Logo_updated.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --ink:#0d0d12; --panel:#15151d; --panel-2:#1c1c26;
+    --line:rgba(212,175,55,.18); --gold:#d4af37; --gold-soft:#e8c874;
+    --cream:#f5f1e8; --muted:#a2a0ac; --wa:#25d366;
+    --green:#3fb950; --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Inter',system-ui,sans-serif;background:var(--ink);color:var(--cream);
+    line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh;
+  }
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;line-height:1.15;font-weight:600}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:660px;margin:0 auto;padding:0 22px}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(13,13,18,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px;max-width:1080px;margin:0 auto;padding:0 22px}
+  .brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.15rem;display:flex;align-items:center;gap:9px}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+  .nav-home{color:var(--muted);font-size:.92rem;transition:color .2s}
+  .nav-home:hover{color:var(--cream)}
+
+  .hero{padding:64px 0 34px;text-align:center}
+  .eyebrow{font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:.22em;font-size:.72rem;font-weight:600;color:var(--gold);display:inline-block;margin-bottom:14px}
+  .hero h1{font-size:clamp(1.9rem,5vw,2.7rem);margin-bottom:12px}
+  .hero p{color:var(--muted);font-size:1.05rem;max-width:44ch;margin:0 auto}
+
+  .search-box{display:flex;gap:10px;margin:32px 0 10px;flex-wrap:wrap}
+  input[type=text]{
+    flex:1;min-width:200px;background:var(--panel-2);border:1px solid var(--line);
+    color:var(--cream);border-radius:10px;padding:15px 17px;font-size:1rem;
+    font-family:'Space Grotesk',sans-serif;letter-spacing:.06em;text-transform:uppercase;outline:none;
+  }
+  input[type=text]:focus{border-color:var(--gold)}
+  input::placeholder{color:#5f5d69;letter-spacing:.04em}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.95rem;
+    padding:15px 26px;border-radius:10px;border:1px solid transparent;cursor:pointer;
+    transition:transform .18s ease,box-shadow .18s ease;
+  }
+  .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-soft));color:#241c00}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(212,175,55,.28)}
+  .btn-gold:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+  .btn-wa{background:var(--wa);color:#062b13}
+
+  .hint{color:var(--muted);font-size:.87rem;text-align:left}
+
+  .msg{margin-top:22px;padding:18px 20px;border-radius:12px;font-size:.97rem;display:none}
+  .msg.show{display:block}
+  .msg.err{background:rgba(248,81,73,.1);border:1px solid rgba(248,81,73,.3);color:#ffb3ae}
+
+  /* result */
+  .result{display:none;margin-top:34px;padding-bottom:70px}
+  .result.show{display:block}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;margin-bottom:16px}
+  .ref-line{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+  .ref-line .ref{font-family:'Space Grotesk',sans-serif;font-size:1.35rem;font-weight:700;letter-spacing:.04em}
+  .ref-line .who{color:var(--muted);font-size:.92rem;margin-top:3px}
+  .pill{padding:6px 14px;border-radius:100px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:rgba(212,175,55,.14);color:var(--gold);white-space:nowrap}
+  .pill.done{background:rgba(63,185,80,.14);color:var(--green)}
+
+  .desc{background:var(--panel-2);border-radius:10px;padding:14px 16px;font-size:.95rem;color:#d8d5cc;margin-bottom:6px}
+
+  .timeline{list-style:none;margin-top:8px}
+  .tl-step{display:flex;gap:16px;padding-bottom:22px;position:relative}
+  .tl-step:last-child{padding-bottom:0}
+  .tl-step::before{
+    content:"";position:absolute;left:12px;top:26px;bottom:0;width:2px;background:var(--line);
+  }
+  .tl-step:last-child::before{display:none}
+  .tl-dot{
+    width:26px;height:26px;border-radius:50%;flex:none;border:2px solid var(--line);
+    background:var(--ink);display:flex;align-items:center;justify-content:center;
+    font-size:.7rem;color:var(--muted);position:relative;z-index:1;
+  }
+  .tl-step.done .tl-dot{border-color:var(--green);background:var(--green);color:#06280f}
+  .tl-step.current .tl-dot{border-color:var(--gold);background:var(--gold);color:#241c00}
+  .tl-body h3{font-size:1rem;margin-bottom:2px}
+  .tl-step.pending .tl-body h3{color:var(--muted);font-weight:500}
+  .tl-body p{color:var(--muted);font-size:.88rem}
+
+  .note{background:rgba(212,175,55,.08);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:14px 18px;margin-top:18px;font-size:.94rem}
+
+  .help{text-align:center;margin-top:26px;color:var(--muted);font-size:.93rem}
+  .help a.btn{margin-top:14px}
+
+  footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:var(--muted);font-size:.85rem}
+
+  @media(max-width:560px){
+    .hero{padding:44px 0 26px}
+    .btn{width:100%}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="/" class="brand"><span class="dot"></span>Abidexpro Printz</a>
+    <a href="/" class="nav-home">&larr; Back to home</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Order Tracking</span>
+    <h1>Where&rsquo;s my job?</h1>
+    <p>Enter the order reference we sent you and we&rsquo;ll show you exactly where it is.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="search-box">
+    <input type="text" id="refInput" placeholder="ABX-000000-000" autocomplete="off" spellcheck="false" />
+    <button class="btn btn-gold" id="trackBtn">Track order</button>
+  </div>
+  <p class="hint">Your reference looks like ABX-260807-441. It&rsquo;s on your quote or receipt.</p>
+
+  <div class="msg err" id="errBox"></div>
+
+  <div class="result" id="result"></div>
+
+  <div class="help" id="helpBox" style="display:none">
+    <p>Can&rsquo;t find your reference?</p>
+    <a href="https://wa.me/2347060927528?text=Hi%20Abidexpro%20Printz%2C%20I%20need%20help%20tracking%20my%20order." class="btn btn-wa" target="_blank" rel="noopener">Ask us on WhatsApp</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Abidexpro Printz &middot; 26 Awofeso Street, Shomolu, Lagos &middot; 0706 092 7528</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  var SUPABASE_URL = 'https://cgxyqznnffibcdqeuejs.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_EpEQIfK6Qs-FJhp8kwIsVA_QkFDC_vT';
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  var STAGES = [
+    { key: 'received',  label: 'Order received',      blurb: 'We have your job and your details.' },
+    { key: 'confirmed', label: 'Artwork confirmed',   blurb: 'Design approved and ready for press.' },
+    { key: 'printing',  label: 'Printing',            blurb: 'Your job is on the press.' },
+    { key: 'finishing', label: 'Finishing',           blurb: 'Cutting, lamination and final checks.' },
+    { key: 'ready',     label: 'Ready',               blurb: 'Ready for collection or dispatch.' },
+    { key: 'delivered', label: 'Delivered',           blurb: 'Job complete. Thank you.' }
+  ];
+
+  var input = document.getElementById('refInput');
+  var btn = document.getElementById('trackBtn');
+  var errBox = document.getElementById('errBox');
+  var resultEl = document.getElementById('result');
+  var helpBox = document.getElementById('helpBox');
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  }
+
+  function fmtDate(d) {
+    if (!d) return '';
+    return new Date(d).toLocaleDateString('en-NG', { day:'numeric', month:'long', year:'numeric' });
+  }
+
+  function showError(text) {
+    errBox.textContent = text;
+    errBox.classList.add('show');
+    resultEl.classList.remove('show');
+    helpBox.style.display = 'block';
+  }
+
+  function render(o) {
+    errBox.classList.remove('show');
+    helpBox.style.display = 'block';
+
+    var idx = -1;
+    for (var i = 0; i < STAGES.length; i++) {
+      if (STAGES[i].key === o.status) idx = i;
+    }
+    if (idx === -1) idx = 0;
+
+    var isDone = o.status === 'delivered';
+
+    var steps = STAGES.map(function (s, i) {
+      var cls = i < idx ? 'done' : (i === idx ? 'current' : 'pending');
+      var mark = i < idx ? '&#10003;' : (i === idx ? '&#9679;' : '');
+      return '<li class="tl-step ' + cls + '">' +
+        '<div class="tl-dot">' + mark + '</div>' +
+        '<div class="tl-body"><h3>' + s.label + '</h3><p>' +
+        (i === idx && o.status_note ? esc(o.status_note) : s.blurb) +
+        '</p></div></li>';
+    }).join('');
+
+    resultEl.innerHTML =
+      '<div class="card">' +
+        '<div class="ref-line">' +
+          '<div>' +
+            '<div class="ref">' + esc(o.ref) + '</div>' +
+            '<div class="who">' + esc(o.customer_name) + '</div>' +
+          '</div>' +
+          '<span class="pill' + (isDone ? ' done' : '') + '">' + esc(STAGES[idx].label) + '</span>' +
+        '</div>' +
+        (o.description ? '<div class="desc">' + esc(o.description) + '</div>' : '') +
+        (o.expected_date && !isDone
+          ? '<div class="note">Expected ready by <strong>' + fmtDate(o.expected_date) + '</strong>. We&rsquo;ll message you when it&rsquo;s done.</div>'
+          : '') +
+      '</div>' +
+      '<div class="card"><ul class="timeline">' + steps + '</ul></div>';
+
+    resultEl.classList.add('show');
+  }
+
+  function lookup() {
+    var ref = input.value.trim().toUpperCase();
+    if (!ref) { showError('Please enter your order reference.'); return; }
+
+    btn.disabled = true;
+    btn.textContent = 'Checking...';
+    errBox.classList.remove('show');
+    resultEl.classList.remove('show');
+
+    sb.from('orders').select('*').eq('ref', ref).then(function (res) {
+      btn.disabled = false;
+      btn.textContent = 'Track order';
+
+      if (res.error) {
+        showError('Something went wrong. Please try again, or message us on WhatsApp.');
+        return;
+      }
+      if (!res.data || !res.data.length) {
+        showError('We could not find an order with that reference. Please check it and try again.');
+        return;
+      }
+      render(res.data[0]);
+
+      if (typeof gtag === 'function') {
+        gtag('event', 'order_tracked', { event_category: 'engagement' });
+      }
+    });
+  }
+
+  btn.addEventListener('click', lookup);
+  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') lookup(); });
+
+  // allow /track?ref=ABX-260807-441
+  (function () {
+    var m = window.location.search.match(/[?&]ref=([^&]+)/);
+    if (m) {
+      input.value = decodeURIComponent(m[1]).toUpperCase();
+      lookup();
+    }
+  })();
+</script>
+
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

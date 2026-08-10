@@ -315,6 +315,50 @@
 
     .no-data { color: var(--muted); font-size: 13px; padding: 14px 0; }
 
+    .tabs {
+      display: flex;
+      gap: 4px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 22px;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--muted);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 11px 18px;
+      cursor: pointer;
+      margin-bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    .ref-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+      background: var(--gold-soft);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 7px;
+    }
+    .copy-link {
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      border-radius: 7px;
+      padding: 9px 15px;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .copy-link:hover { border-color: var(--gold); color: var(--gold); }
+
     /* ---------- Quote builder ---------- */
     .modal-back {
       position: fixed;
@@ -457,6 +501,12 @@
     </header>
 
     <main>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="leads">Quote requests</button>
+        <button class="tab-btn" data-tab="orders">Orders</button>
+      </div>
+
+      <div id="tabLeads">
       <div class="stats">
         <div class="stat"><div class="num" id="statTotal">0</div><div class="lbl">Total</div></div>
         <div class="stat new"><div class="num" id="statNew">0</div><div class="lbl">New</div></div>
@@ -501,6 +551,32 @@
       </div>
 
       <div class="cards" id="cards"></div>
+      </div>
+
+      <div id="tabOrders" class="hidden">
+        <div class="stats">
+          <div class="stat"><div class="num" id="oTotal">0</div><div class="lbl">Open jobs</div></div>
+          <div class="stat new"><div class="num" id="oPrinting">0</div><div class="lbl">In production</div></div>
+          <div class="stat won"><div class="num" id="oReady">0</div><div class="lbl">Ready</div></div>
+        </div>
+
+        <div class="toolbar">
+          <input type="text" id="oSearch" placeholder="Search reference, name, phone..." />
+          <select id="oFilter">
+            <option value="open">Open jobs</option>
+            <option value="all">All</option>
+            <option value="received">Received</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="printing">Printing</option>
+            <option value="finishing">Finishing</option>
+            <option value="ready">Ready</option>
+            <option value="delivered">Delivered</option>
+          </select>
+          <button class="primary" id="newOrderBtn" style="width:auto;padding:11px 20px">+ New order</button>
+        </div>
+
+        <div class="cards" id="orderCards"></div>
+      </div>
     </main>
   </div>
 
@@ -762,6 +838,246 @@
         });
       }
     }
+
+    /* ---------- Orders ---------- */
+    var ORDER_STAGES = [
+      ['received', 'Received'],
+      ['confirmed', 'Artwork confirmed'],
+      ['printing', 'Printing'],
+      ['finishing', 'Finishing'],
+      ['ready', 'Ready'],
+      ['delivered', 'Delivered']
+    ];
+
+    var allOrders = [];
+    var ordersLoaded = false;
+
+    var tabBtns = document.querySelectorAll('.tab-btn');
+    for (var t = 0; t < tabBtns.length; t++) {
+      tabBtns[t].addEventListener('click', function () {
+        for (var i = 0; i < tabBtns.length; i++) tabBtns[i].classList.remove('active');
+        this.classList.add('active');
+        var tab = this.getAttribute('data-tab');
+        document.getElementById('tabLeads').classList.toggle('hidden', tab !== 'leads');
+        document.getElementById('tabOrders').classList.toggle('hidden', tab !== 'orders');
+        if (tab === 'orders' && !ordersLoaded) loadOrders();
+      });
+    }
+
+    function makeRef() {
+      var d = new Date();
+      var y = String(d.getFullYear()).slice(2);
+      var m = ('0' + (d.getMonth() + 1)).slice(-2);
+      var day = ('0' + d.getDate()).slice(-2);
+      var rnd = ('00' + Math.floor(Math.random() * 900 + 100)).slice(-3);
+      return 'ABX-' + y + m + day + '-' + rnd;
+    }
+
+    function loadOrders() {
+      var el = document.getElementById('orderCards');
+      el.innerHTML = '<div class="empty">Loading...</div>';
+      sb.from('orders').select('*').order('created_at', { ascending: false }).then(function (res) {
+        if (res.error) {
+          el.innerHTML = '<div class="empty">Could not load: ' + esc(res.error.message) + '</div>';
+          return;
+        }
+        allOrders = res.data || [];
+        ordersLoaded = true;
+        renderOrders();
+      });
+    }
+
+    function renderOrders() {
+      var el = document.getElementById('orderCards');
+      var q = document.getElementById('oSearch').value.trim().toLowerCase();
+      var f = document.getElementById('oFilter').value;
+
+      var open = allOrders.filter(function (o) { return o.status !== 'delivered'; });
+      document.getElementById('oTotal').textContent = open.length;
+      document.getElementById('oPrinting').textContent = allOrders.filter(function (o) {
+        return o.status === 'printing' || o.status === 'finishing';
+      }).length;
+      document.getElementById('oReady').textContent = allOrders.filter(function (o) {
+        return o.status === 'ready';
+      }).length;
+
+      var rows = allOrders.filter(function (o) {
+        if (f === 'open' && o.status === 'delivered') return false;
+        if (f !== 'open' && f !== 'all' && o.status !== f) return false;
+        if (!q) return true;
+        return [o.ref, o.customer_name, o.phone, o.email, o.description]
+          .join(' ').toLowerCase().indexOf(q) !== -1;
+      });
+
+      if (!rows.length) {
+        el.innerHTML = '<div class="empty">No orders here yet. Click &ldquo;+ New order&rdquo; to create one.</div>';
+        return;
+      }
+
+      el.innerHTML = rows.map(function (o) {
+        var label = 'Received';
+        for (var i = 0; i < ORDER_STAGES.length; i++) {
+          if (ORDER_STAGES[i][0] === o.status) label = ORDER_STAGES[i][1];
+        }
+        var opts = ORDER_STAGES.map(function (s) {
+          return '<option value="' + s[0] + '"' + (s[0] === o.status ? ' selected' : '') + '>' + s[1] + '</option>';
+        }).join('');
+        var wa = waLink(o.phone);
+
+        return '<div class="card">' +
+          '<div class="card-top">' +
+            '<div>' +
+              '<span class="ref-badge">' + esc(o.ref) + '</span>' +
+              '<div class="card-name">' + esc(o.customer_name) + '</div>' +
+              '<div class="card-date">Created ' + fmtDate(o.created_at) + '</div>' +
+            '</div>' +
+            '<span class="pill ' + (o.status === 'delivered' ? 'won' : 'new') + '">' + label + '</span>' +
+          '</div>' +
+          (o.description ? '<div class="details-box">' + esc(o.description) + '</div>' : '') +
+          '<div class="grid-info">' +
+            '<div><div class="info-lbl">Phone</div><div class="info-val">' + (esc(o.phone) || '&mdash;') + '</div></div>' +
+            '<div><div class="info-lbl">Expected</div><div class="info-val">' + (o.expected_date ? fmtDate(o.expected_date) : '&mdash;') + '</div></div>' +
+          '</div>' +
+          '<div class="work-area">' +
+            '<div class="info-lbl">Note shown to customer at this stage</div>' +
+            '<textarea class="o-note" data-id="' + o.id + '" rows="2" placeholder="e.g. On the press now, ready Thursday">' + esc(o.status_note) + '</textarea>' +
+            '<div class="save-row">' +
+              '<button class="save-btn o-save" data-id="' + o.id + '">Save note</button>' +
+              '<span class="save-flag" data-oflag="' + o.id + '"></span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card-actions">' +
+            '<select class="o-status" data-id="' + o.id + '">' + opts + '</select>' +
+            '<button class="copy-link" data-ref="' + esc(o.ref) + '">Copy tracking link</button>' +
+            (wa ? '<a class="wa-btn" href="' + wa + '" target="_blank" rel="noopener">WhatsApp</a>' : '') +
+          '</div>' +
+        '</div>';
+      }).join('');
+
+      bindOrderEvents();
+    }
+
+    function updateOrder(id, patch, done) {
+      patch.updated_at = new Date().toISOString();
+      sb.from('orders').update(patch).eq('id', id).then(function (res) {
+        if (!res.error) {
+          for (var i = 0; i < allOrders.length; i++) {
+            if (allOrders[i].id === id) {
+              for (var k in patch) allOrders[i][k] = patch[k];
+            }
+          }
+        }
+        done(res);
+      });
+    }
+
+    function bindOrderEvents() {
+      var el = document.getElementById('orderCards');
+
+      var sels = el.querySelectorAll('.o-status');
+      for (var i = 0; i < sels.length; i++) {
+        sels[i].addEventListener('change', function () {
+          var s = this;
+          s.disabled = true;
+          updateOrder(s.getAttribute('data-id'), { status: s.value }, function (res) {
+            s.disabled = false;
+            if (res.error) { alert('Could not update: ' + res.error.message); return; }
+            renderOrders();
+          });
+        });
+      }
+
+      var saves = el.querySelectorAll('.o-save');
+      for (var j = 0; j < saves.length; j++) {
+        saves[j].addEventListener('click', function () {
+          var id = this.getAttribute('data-id');
+          var btn = this;
+          var ta = el.querySelector('.o-note[data-id="' + id + '"]');
+          var flag = el.querySelector('.save-flag[data-oflag="' + id + '"]');
+          btn.disabled = true;
+          btn.textContent = 'Saving...';
+          updateOrder(id, { status_note: ta.value }, function (res) {
+            btn.disabled = false;
+            btn.textContent = 'Save note';
+            if (res.error) {
+              flag.className = 'save-flag bad';
+              flag.textContent = res.error.message;
+              return;
+            }
+            flag.className = 'save-flag good';
+            flag.textContent = 'Saved';
+            setTimeout(function () { flag.textContent = ''; }, 2500);
+          });
+        });
+      }
+
+      var copies = el.querySelectorAll('.copy-link');
+      for (var c = 0; c < copies.length; c++) {
+        copies[c].addEventListener('click', function () {
+          var btn = this;
+          var link = 'https://abidexproprintz.com/track?ref=' + btn.getAttribute('data-ref');
+          var old = btn.textContent;
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(link).then(function () {
+              btn.textContent = 'Copied';
+              setTimeout(function () { btn.textContent = old; }, 2000);
+            });
+          } else {
+            prompt('Copy this link:', link);
+          }
+        });
+      }
+    }
+
+    document.getElementById('oSearch').addEventListener('input', renderOrders);
+    document.getElementById('oFilter').addEventListener('change', renderOrders);
+
+    document.getElementById('newOrderBtn').addEventListener('click', function () {
+      var back = document.createElement('div');
+      back.className = 'modal-back';
+      back.innerHTML =
+        '<div class="modal">' +
+          '<div class="modal-head"><h2>New order</h2><button class="modal-close">&times;</button></div>' +
+          '<div class="field"><label>Reference</label><input type="text" id="nRef" value="' + makeRef() + '" /></div>' +
+          '<div class="field"><label>Customer name *</label><input type="text" id="nName" placeholder="e.g. Uyiosa" /></div>' +
+          '<div class="field"><label>Phone / WhatsApp</label><input type="text" id="nPhone" placeholder="08012345678" /></div>' +
+          '<div class="field"><label>Email</label><input type="email" id="nEmail" /></div>' +
+          '<div class="field"><label>What is being printed</label><textarea id="nDesc" rows="2" placeholder="e.g. 500 business cards, 350gsm matte, double sided"></textarea></div>' +
+          '<div class="field"><label>Expected ready date</label><input type="date" id="nDate" /></div>' +
+          '<div class="modal-actions">' +
+            '<button class="primary" id="nSave" style="width:auto;padding:12px 24px">Create order</button>' +
+          '</div>' +
+        '</div>';
+      document.body.appendChild(back);
+
+      function close() { back.remove(); }
+      back.querySelector('.modal-close').addEventListener('click', close);
+      back.addEventListener('click', function (e) { if (e.target === back) close(); });
+
+      back.querySelector('#nSave').addEventListener('click', function () {
+        var name = back.querySelector('#nName').value.trim();
+        if (!name) { alert('Customer name is required.'); return; }
+        var btn = this;
+        btn.disabled = true;
+        btn.textContent = 'Creating...';
+
+        sb.from('orders').insert({
+          ref: back.querySelector('#nRef').value.trim().toUpperCase(),
+          customer_name: name,
+          phone: back.querySelector('#nPhone').value.trim(),
+          email: back.querySelector('#nEmail').value.trim(),
+          description: back.querySelector('#nDesc').value.trim(),
+          expected_date: back.querySelector('#nDate').value || null,
+          status: 'received'
+        }).select().then(function (res) {
+          btn.disabled = false;
+          btn.textContent = 'Create order';
+          if (res.error) { alert('Could not create: ' + res.error.message); return; }
+          close();
+          loadOrders();
+        });
+      });
+    });
 
     /* ---------- Quote builder ---------- */
     var quoteRow = null;
