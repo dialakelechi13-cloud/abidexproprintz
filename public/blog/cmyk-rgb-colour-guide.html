@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MDFP533Z8W"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MDFP533Z8W');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Abidexpro Printz" />
+  <title>CMYK vs RGB: Why Your Colours Change When Printed | Abidexpro Printz</title>
+  <meta name="description" content="Why the colours on your screen never quite match the print, what CMYK and RGB actually mean, and a reference palette with CMYK and hex values for common print colours." />
+  <link rel="canonical" href="https://abidexproprintz.com/blog/cmyk-rgb-colour-guide" />
+  <link rel="icon" type="image/png" href="/images/Abidex_Logo_updated.png" />
+  <meta property="og:title" content="CMYK vs RGB: Why Your Colours Change When You Print Them" />
+  <meta property="og:description" content="Why the colours on your screen never quite match the print, what CMYK and RGB actually mean, and a reference palette with CMYK and hex values for common print colours." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://abidexproprintz.com/blog/cmyk-rgb-colour-guide" />
+  <meta property="og:image" content="https://abidexproprintz.com/images/share-banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "CMYK vs RGB: Why Your Colours Change When You Print Them", "description": "Why the colours on your screen never quite match the print, what CMYK and RGB actually mean, and a reference palette with CMYK and hex values for common print colours.", "datePublished": "2026-08-11", "dateModified": "2026-08-11", "author": {"@type": "Organization", "name": "Abidexpro Printz"}, "publisher": {"@type": "Organization", "name": "Abidexpro Printz", "logo": {"@type": "ImageObject", "url": "https://abidexproprintz.com/images/Abidex_Logo_updated.png"}}, "mainEntityOfPage": "https://abidexproprintz.com/blog/cmyk-rgb-colour-guide"}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between CMYK and RGB?", "acceptedAnswer": {"@type": "Answer", "text": "RGB is additive colour made from light and is used by screens, starting from black and adding light to reach white. CMYK is subtractive colour made from ink on paper, starting from white and absorbing light. Printing uses CMYK, so screen colours must be converted."}}, {"@type": "Question", "name": "Why does my blue print as purple?", "acceptedAnswer": {"@type": "Answer", "text": "Bright saturated blue in RGB sits outside the range CMYK ink can reproduce. During conversion it shifts toward the nearest achievable colour, which often reads purple. Specify a CMYK blue you have seen printed rather than picking a vivid screen blue."}}, {"@type": "Question", "name": "What is rich black and when should I use it?", "acceptedAnswer": {"@type": "Answer", "text": "Rich black is black ink printed over cyan, magenta and yellow to produce a deeper solid. A common mix is C60 M40 Y40 K100. Use it for large solid areas only. Small text should be 100 percent K alone, or misregistration causes coloured fringing."}}, {"@type": "Question", "name": "Do I need Pantone colours?", "acceptedAnswer": {"@type": "Answer", "text": "Only if a brand colour must be identical across many jobs over a long period. Pantone uses pre-mixed ink for exact consistency but costs more. For most small business printing, a specified CMYK mix plus a printed proof is sufficient."}}, {"@type": "Question", "name": "Why does the same file look different on different paper?", "acceptedAnswer": {"@type": "Answer", "text": "Ink behaves differently depending on the stock. Coated gloss paper holds ink on the surface and looks more vivid. Uncoated paper absorbs ink and looks softer and slightly darker. Always proof on the stock you intend to use."}}, {"@type": "Question", "name": "Can printers match the colour on my phone screen?", "acceptedAnswer": {"@type": "Answer", "text": "No, and no printer can. Phone screens are backlit and boost saturation heavily. Print reflects ambient light. Judge colour from a printed proof under normal daylight instead."}}]}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    .post-hero{padding:calc(var(--nav-h) + 56px) 0 44px;background:var(--cream-dark);border-bottom:1px solid rgba(15,15,15,.08)}
+    .post-wrap{max-width:740px;margin:0 auto;padding:0 24px}
+    .post-crumb{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;margin-bottom:16px;color:var(--grey-mid)}
+    .post-crumb a{color:var(--green);text-decoration:none}
+    .post-crumb a:hover{text-decoration:underline}
+    .post-hero h1{font-family:var(--font-display);font-size:clamp(28px,5vw,42px);line-height:1.18;margin:0 0 14px;color:var(--ink)}
+    .post-meta{font-family:var(--font-mono);font-size:12px;color:var(--grey-mid);letter-spacing:.04em}
+    .post-body{padding:44px 0 72px;font-size:17px;line-height:1.75;color:var(--ink-soft)}
+    .post-body p{margin:0 0 20px}
+    .post-body h2{font-family:var(--font-display);font-size:27px;margin:46px 0 16px;line-height:1.25;color:var(--ink)}
+    .post-body h3{font-family:var(--font-display);font-size:19px;margin:32px 0 10px;color:var(--ink)}
+    .post-body ul,.post-body ol{margin:0 0 22px;padding-left:22px}
+    .post-body li{margin-bottom:9px}
+    .post-body a{color:var(--green);font-weight:500}
+    .post-body strong{color:var(--ink);font-weight:600}
+    .lead{font-size:19px;color:var(--ink)}
+    .price-table{width:100%;border-collapse:collapse;margin:24px 0 30px;font-size:15px;background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+    .price-table th,.price-table td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--grey-light)}
+    .price-table th{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--green);background:var(--green-pale)}
+    .price-table tr:last-child td{border-bottom:none}
+    .callout{background:rgba(201,168,76,.13);border-left:3px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:30px 0;font-size:16px;color:var(--ink)}
+    .callout p:last-child{margin-bottom:0}
+    .post-cta{background:var(--ink);color:var(--white);border-radius:var(--radius-lg);padding:38px 32px;margin:50px 0 10px;text-align:center}
+    .post-cta h3{font-family:var(--font-display);font-size:24px;margin:0 0 10px;color:var(--white)}
+    .post-cta p{margin:0 0 24px;color:rgba(255,255,255,.7);font-size:16px}
+    .post-cta .btn{margin:0 5px 8px}
+    .faq-q{font-family:var(--font-display);font-size:17px;margin:28px 0 8px;color:var(--ink);font-weight:600}
+    .related{border-top:1px solid var(--grey-light);padding-top:34px;margin-top:48px}
+    .related h3{font-family:var(--font-mono);font-size:12px;margin:0 0 16px;text-transform:uppercase;letter-spacing:.1em;color:var(--grey-mid)}
+    .related ul{list-style:none;padding:0;margin:0}
+    .related li{margin-bottom:12px}
+    .related a{color:var(--green);text-decoration:none;font-size:16px;font-weight:500}
+    .related a:hover{text-decoration:underline}
+    .swatch-table td:first-child{width:56px}
+    .sw{display:block;width:38px;height:38px;border-radius:7px;border:1px solid rgba(15,15,15,.14);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+    .swatch-table td{font-family:var(--font-mono);font-size:13.5px}
+    .swatch-table td:nth-child(2){font-family:var(--font-body);font-size:15px}
+    @media(max-width:600px){.post-hero{padding:calc(var(--nav-h) + 34px) 0 32px}.post-body{font-size:16px}.post-cta{padding:30px 22px}
+      .swatch-table td,.swatch-table th{padding:9px 7px;font-size:12px}
+      .sw{width:30px;height:30px}.swatch-table td:first-child{width:42px}}
+  </style>
+</head>
+<body>
+  <header id="header">
+    <nav class="nav-inner">
+      <a href="/" class="logo" aria-label="Abidexpro Printz home">
+        <img src="/images/Abidex_Logo_updated.png" alt="Abidexpro Printz printing company Lagos" style="height:65px;width:auto;max-width:160px;" />
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li class="nav-dropdown">
+          <a href="/#services" class="nav-dropdown-toggle">Services <span class="nav-caret">&#9662;</span></a>
+          <ul class="nav-dropdown-menu">
+            <li><a href="/#services">All Services</a></li>
+            <li><a href="/business-cards">Business Cards</a></li>
+            <li><a href="/banners">Banners</a></li>
+            <li><a href="/t-shirts">Custom T-Shirts</a></li>
+            <li><a href="/flyers">Flyers &amp; Brochures</a></li>
+          </ul>
+        </li>
+        <li><a href="/#portfolio">Portfolio</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#contact" class="nav-cta">Get a Quote</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <div class="post-hero">
+        <div class="post-wrap">
+          <p class="post-crumb"><a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a></p>
+          <h1>CMYK vs RGB: Why Your Colours Change When You Print Them</h1>
+          <p class="post-meta">11 August 2026 &middot; 7 min read &middot; Abidexpro Printz, Shomolu Lagos</p>
+        </div>
+      </div>
+
+      <div class="post-body">
+        <div class="post-wrap">
+<p class="lead">You approve a design on your laptop. It looks perfect. Then the print arrives and the blue has gone slightly grey, or the orange has lost its punch. Nobody made a mistake &mdash; your screen and the press are doing two completely different things.</p>
+
+          <h2>Screens add light. Paper subtracts it.</h2>
+          <p>This is the whole thing in one line, and once it clicks, everything else makes sense.</p>
+          <p>Your screen starts black and adds light. Red, green and blue light mixed together at full strength give you white. That is <strong>RGB</strong>. It is additive &mdash; the more you add, the brighter it gets.</p>
+          <p>Paper starts white and takes light away. Ink absorbs some wavelengths and reflects the rest, and what reflects back is the colour you see. That is <strong>CMYK</strong> &mdash; cyan, magenta, yellow and black. It is subtractive. The more ink you put down, the darker and duller it gets.</p>
+          <p>So a screen is a light source and a print is a light filter. They are not the same medium, and they never will be. Some colours a screen can produce simply cannot be mixed from four inks.</p>
+
+          <div class="callout">
+            <p><strong>The practical consequence:</strong> bright, glowing colours &mdash; electric blues, neon greens, vivid oranges &mdash; will always look slightly flatter in print. That is physics, not a printing fault.</p>
+          </div>
+
+          <h2>What the four inks actually do</h2>
+          <p>Every full-colour print you have ever held was built from four inks laid down in tiny dots:</p>
+          <ul>
+            <li><strong>C &mdash; Cyan.</strong> A clean sky blue.</li>
+            <li><strong>M &mdash; Magenta.</strong> A strong pink-red.</li>
+            <li><strong>Y &mdash; Yellow.</strong> Pure yellow.</li>
+            <li><strong>K &mdash; Black.</strong> Called K for &ldquo;key&rdquo;, because the black plate was traditionally the one everything else aligned to. It also avoids confusion with the B in RGB.</li>
+          </ul>
+          <p>Mixing cyan, magenta and yellow at full strength should theoretically give black. In practice it gives a muddy dark brown, uses a lot of ink, and soaks the paper. So black gets its own ink.</p>
+
+          <h2>The colours that cause the most trouble</h2>
+
+          <h3>Bright blue turning purple</h3>
+          <p>The most common complaint in print. A vivid RGB blue sits outside what CMYK can reproduce, so the conversion pushes it toward the nearest achievable colour, which often reads purple. If your brand blue matters, avoid pure saturated blue in your artwork and specify a CMYK mix you have actually seen printed.</p>
+
+          <h3>Flat black instead of deep black</h3>
+          <p>If you set black as 100% K only, large areas come out looking grey and washed. For big solid blocks, printers use a <strong>rich black</strong> &mdash; black ink with cyan, magenta and yellow underneath it. A common mix is C60 M40 Y40 K100.</p>
+          <p>But use it only for large areas. Small text in rich black needs four inks to land in perfect register, and any tiny misalignment shows as coloured fringing. <strong>Body text should always be 100% K only.</strong></p>
+
+          <h3>Neon and fluorescent</h3>
+          <p>Cannot be done in standard CMYK at all. If you genuinely need it, that is a special ink and a separate conversation.</p>
+
+          <h2>A working palette</h2>
+          <p>These are colours that reproduce reliably in CMYK. Values are given as CMYK for print and hex for screen, so you can specify either way.</p>
+
+          <table class="price-table swatch-table">
+            <tr><th>&nbsp;</th><th>Name</th><th>CMYK</th><th>Hex</th></tr>
+            <tr><td><span class="sw" style="background:#0f0f0f"></span></td><td>Ink black</td><td>60 / 40 / 40 / 100</td><td>#0F0F0F</td></tr>
+            <tr><td><span class="sw" style="background:#3a3a3a"></span></td><td>Charcoal</td><td>0 / 0 / 0 / 85</td><td>#3A3A3A</td></tr>
+            <tr><td><span class="sw" style="background:#8a8a8a"></span></td><td>Mid grey</td><td>0 / 0 / 0 / 50</td><td>#8A8A8A</td></tr>
+            <tr><td><span class="sw" style="background:#c9a84c"></span></td><td>Antique gold</td><td>18 / 30 / 82 / 2</td><td>#C9A84C</td></tr>
+            <tr><td><span class="sw" style="background:#b8860b"></span></td><td>Dark gold</td><td>20 / 42 / 100 / 8</td><td>#B8860B</td></tr>
+            <tr><td><span class="sw" style="background:#1a5c2a"></span></td><td>Forest green</td><td>85 / 35 / 95 / 30</td><td>#1A5C2A</td></tr>
+            <tr><td><span class="sw" style="background:#2d8a46"></span></td><td>Leaf green</td><td>78 / 18 / 90 / 4</td><td>#2D8A46</td></tr>
+            <tr><td><span class="sw" style="background:#0b3d6b"></span></td><td>Navy</td><td>100 / 78 / 30 / 15</td><td>#0B3D6B</td></tr>
+            <tr><td><span class="sw" style="background:#1f6fb2"></span></td><td>Corporate blue</td><td>82 / 45 / 6 / 0</td><td>#1F6FB2</td></tr>
+            <tr><td><span class="sw" style="background:#7c1c1c"></span></td><td>Deep red</td><td>25 / 95 / 90 / 25</td><td>#7C1C1C</td></tr>
+            <tr><td><span class="sw" style="background:#c0392b"></span></td><td>Brick red</td><td>15 / 90 / 88 / 5</td><td>#C0392B</td></tr>
+            <tr><td><span class="sw" style="background:#d35400"></span></td><td>Burnt orange</td><td>5 / 75 / 100 / 0</td><td>#D35400</td></tr>
+            <tr><td><span class="sw" style="background:#6c3483"></span></td><td>Plum</td><td>65 / 88 / 10 / 2</td><td>#6C3483</td></tr>
+            <tr><td><span class="sw" style="background:#0e7c7b"></span></td><td>Teal</td><td>85 / 30 / 45 / 8</td><td>#0E7C7B</td></tr>
+            <tr><td><span class="sw" style="background:#f0ebe0"></span></td><td>Cream</td><td>4 / 5 / 12 / 0</td><td>#F0EBE0</td></tr>
+            <tr><td><span class="sw" style="background:#faf7f0"></span></td><td>Off white</td><td>2 / 2 / 5 / 0</td><td>#FAF7F0</td></tr>
+          </table>
+
+          <p>Note the swatches above are rendered on a screen, so they are RGB approximations. They tell you roughly what to expect, not exactly. Which brings us to the only reliable method.</p>
+
+          <div class="callout">
+            <p><strong>If a colour genuinely matters &mdash; a brand colour, a logo &mdash; ask for a printed proof and judge it on paper, under normal daylight. Never sign off a critical colour from a screen.</strong></p>
+          </div>
+
+          <h2>What about Pantone?</h2>
+          <p>Pantone is a system of pre-mixed inks, each with a number. Instead of building a colour from four inks, the press uses one ink mixed to that exact recipe. It gives consistency across jobs, across printers and across years.</p>
+          <p>It also costs more, because it is a separate ink and often a separate press run. It is worth it when a brand colour must be identical on every item across a long period &mdash; think of the big brands whose red or blue you would recognise anywhere. For most small business printing, a well-specified CMYK mix and a proof is enough.</p>
+
+          <h2>How to prepare files so colours behave</h2>
+          <ul>
+            <li><strong>Design in CMYK from the start.</strong> Converting at the end is where nasty surprises happen.</li>
+            <li><strong>Send CMYK files.</strong> If you send RGB, someone converts it &mdash; and you will not be in the room when they do.</li>
+            <li><strong>Specify brand colours in CMYK values,</strong> not just &ldquo;our blue&rdquo;.</li>
+            <li><strong>Body text 100% K only.</strong> Never rich black for small type.</li>
+            <li><strong>Large solid blacks: use rich black.</strong> Ask your printer for their preferred mix.</li>
+            <li><strong>Do not judge colour on a phone screen.</strong> Phones boost saturation heavily.</li>
+            <li><strong>Ask for a proof on the actual stock.</strong> Colour sits differently on matte, gloss and uncoated paper.</li>
+          </ul>
+
+          <h2>One thing worth accepting</h2>
+          <p>Colour will never match your screen exactly. Two different screens will not even match each other. What you can get is colour that is consistent, predictable and close &mdash; and consistent matters far more than perfect. A brand colour that comes out the same on every job you ever print is worth more than one that is briefly exact and then drifts.</p>
+          <p>The way to get consistency is boring but reliable: specify in CMYK, print a proof, keep the proof, and give it to your printer next time. For more on preparing files properly, see our <a href="/blog/business-card-paper-guide">business card paper guide</a> and our <a href="/blog/printing-cost-lagos">guide to printing costs</a>.</p>
+
+          <h2>Common questions</h2>
+<p class="faq-q">What is the difference between CMYK and RGB?</p>
+<p>RGB is additive colour made from light and is used by screens, starting from black and adding light to reach white. CMYK is subtractive colour made from ink on paper, starting from white and absorbing light. Printing uses CMYK, so screen colours must be converted.</p>
+<p class="faq-q">Why does my blue print as purple?</p>
+<p>Bright saturated blue in RGB sits outside the range CMYK ink can reproduce. During conversion it shifts toward the nearest achievable colour, which often reads purple. Specify a CMYK blue you have seen printed rather than picking a vivid screen blue.</p>
+<p class="faq-q">What is rich black and when should I use it?</p>
+<p>Rich black is black ink printed over cyan, magenta and yellow to produce a deeper solid. A common mix is C60 M40 Y40 K100. Use it for large solid areas only. Small text should be 100 percent K alone, or misregistration causes coloured fringing.</p>
+<p class="faq-q">Do I need Pantone colours?</p>
+<p>Only if a brand colour must be identical across many jobs over a long period. Pantone uses pre-mixed ink for exact consistency but costs more. For most small business printing, a specified CMYK mix plus a printed proof is sufficient.</p>
+<p class="faq-q">Why does the same file look different on different paper?</p>
+<p>Ink behaves differently depending on the stock. Coated gloss paper holds ink on the surface and looks more vivid. Uncoated paper absorbs ink and looks softer and slightly darker. Always proof on the stock you intend to use.</p>
+<p class="faq-q">Can printers match the colour on my phone screen?</p>
+<p>No, and no printer can. Phone screens are backlit and boost saturation heavily. Print reflects ambient light. Judge colour from a printed proof under normal daylight instead.</p>
+
+
+          <div class="post-cta">
+            <h3>Need a quote for your job?</h3>
+            <p>Send us the details and we&rsquo;ll come back with a firm price, no obligation.</p>
+            <a href="https://wa.me/2347060927528?text=Hi%20Abidexpro%20Printz!%20I%20read%20your%20guide%20and%20would%20like%20a%20quote." class="btn btn-primary" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+            <a href="/#contact" class="btn btn-ghost">Request a Quote</a>
+          </div>
+
+          <div class="related">
+            <h3>Read next</h3>
+            <ul>
+<li><a href="/blog/printing-cost-lagos">How much does printing cost in Lagos?</a></li>
+<li><a href="/blog/business-card-paper-guide">Business card paper guide</a></li>
+<li><a href="/blog/large-format-bulk-printing-lagos">A2, large format and bulk printing in Lagos</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><a href="/" class="logo"><img src="/images/Abidex_Logo_updated.png" alt="Abidexpro Printz logo" style="height:130px;width:auto;" /></a><p>Premium printing in Lagos. Quality that speaks for itself.</p></div>
+      <div class="footer-links"><h4>Quick Links</h4><ul><li><a href="/#services">Services</a></li><li><a href="/#portfolio">Portfolio</a></li><li><a href="/business-cards">Business Cards</a></li><li><a href="/banners">Banners</a></li><li><a href="/t-shirts">Custom T-Shirts</a></li><li><a href="/flyers">Flyers &amp; Brochures</a></li><li><a href="/#pricing">Pricing</a></li><li><a href="/blog/">Blog</a></li></ul></div>
+      <div class="footer-links"><h4>Guides</h4><ul>
+        <li><a href="/blog/printing-cost-lagos">Printing costs in Lagos</a></li>
+        <li><a href="/blog/roll-up-banner-prices-lagos">Roll-up banner prices</a></li>
+        <li><a href="/blog/business-card-paper-guide">Business card paper guide</a></li>
+        <li><a href="/blog/printing-turnaround-lagos">Printing turnaround times</a></li>
+        <li><a href="/blog/t-shirt-printing-methods-lagos">T-shirt printing methods</a></li>
+        <li><a href="/blog/printing-press-shomolu-lagos">Printing press in Shomolu</a></li>
+        <li><a href="/blog/cmyk-rgb-colour-guide">CMYK vs RGB colour guide</a></li>
+        <li><a href="/blog/large-format-bulk-printing-lagos">A2 &amp; bulk printing</a></li>
+        <li><a href="/track">Track an order</a></li>
+        <li><a href="/account">My orders</a></li>
+      </ul></div>
+      <div class="footer-contact"><h4>Contact</h4><p>26, Awofeso, Shomolu, Lagos</p><p>abidexprintz@gmail.com</p><p>Mon&ndash;Sat: 8am &ndash; 7pm</p><a href="https://wa.me/2347060927528?text=Hi%20Abidexpro%20Printz!%20I%20would%20like%20to%20get%20a%20quote%20for%20my%20print%20project." class="footer-wa" target="_blank" rel="noopener noreferrer">WhatsApp Us &rarr;</a><div class="footer-socials"><a href="https://www.instagram.com/abidexprints/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://www.facebook.com/p/ABIDEX-PRINTS-100079581472969/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a></div></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; <span id="year"></span> Abidexpro Printz. All rights reserved.</p></div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();
+  (function(){var h=document.getElementById('hamburger'),n=document.getElementById('navLinks');
+   if(h&&n){h.addEventListener('click',function(){n.classList.toggle('open');h.classList.toggle('active');
+   h.setAttribute('aria-expanded', n.classList.contains('open'));});}})();</script>
+</body>
+</html>
