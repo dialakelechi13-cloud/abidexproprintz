@@ -32,12 +32,13 @@
     .post-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;padding:48px 0 80px}
     .post-card{display:flex;flex-direction:column;background:var(--white);border:1px solid var(--grey-light);border-radius:var(--radius-lg);padding:28px;text-decoration:none;color:inherit;transition:var(--transition);box-shadow:var(--shadow)}
     .post-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+    .post-card-img{display:block;height:170px;border-radius:var(--radius);background-size:cover;background-position:center;margin:-6px 0 16px;border:1px solid var(--grey-light)}
     .post-card-tag{display:inline-block;align-self:flex-start;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:rgba(201,168,76,.14);padding:.3rem .75rem;border-radius:100px;margin-bottom:14px}
     .post-card h2{font-family:var(--font-display);font-size:20px;line-height:1.32;margin:0 0 11px;color:var(--ink)}
     .post-card p{font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin:0 0 18px;flex:1}
     .post-card-meta{font-family:var(--font-mono);font-size:11.5px;color:var(--grey-mid);letter-spacing:.04em;margin-bottom:12px}
     .post-card-more{font-size:14px;font-weight:600;color:var(--green)}
-    @media(max-width:600px){.blog-hero{padding:calc(var(--nav-h) + 36px) 0 34px}}
+    @media(max-width:600px){.blog-hero{padding:calc(var(--nav-h) + 36px) 0 34px}.post-card-img{height:150px}}
   </style>
 </head>
 <body>
@@ -80,42 +81,42 @@
       <div class="blog-wrap">
         <div class="post-list">
           <a class="post-card" href="/blog/printing-press-shomolu-lagos">
-            <span class="post-card-tag">Guide</span>
+            <span class="post-card-img" style="background-image:url('/images/banner-prints.jpg')"></span><span class="post-card-tag">Guide</span>
             <h2>Printing Press in Shomolu Lagos: A Buyer&rsquo;s Guide to Nigeria&rsquo;s Print Capital</h2>
             <p>Shomolu is Nigeria's biggest printing hub. A practical guide to buying print there — how the area works, what to ask, how to compare quotes, and how to avoid the common mistakes.</p>
             <span class="post-card-meta">10 August 2026 &middot; 8 min read</span>
             <span class="post-card-more">Read more &rarr;</span>
           </a>
           <a class="post-card" href="/blog/cmyk-rgb-colour-guide">
-            <span class="post-card-tag">Guide</span>
+            <span class="post-card-img" style="background-image:url('/images/packaging-2.jpg')"></span><span class="post-card-tag">Guide</span>
             <h2>CMYK vs RGB: Why Your Colours Change When You Print Them</h2>
             <p>Why the colours on your screen never quite match the print, what CMYK and RGB actually mean, and a reference palette with CMYK and hex values for common print colours.</p>
             <span class="post-card-meta">11 August 2026 &middot; 7 min read</span>
             <span class="post-card-more">Read more &rarr;</span>
           </a>
           <a class="post-card" href="/blog/large-format-bulk-printing-lagos">
-            <span class="post-card-tag">Guide</span>
+            <span class="post-card-img" style="background-image:url('/images/packaging.jpg')"></span><span class="post-card-tag">Guide</span>
             <h2>A2, Large Format and Bulk Printing: How to Find a Printer Who Can Actually Handle It</h2>
             <p>How to find a printer who can genuinely handle A2 posters, large format and bulk runs in Lagos — what to ask, what should happen to the price, and the warning signs.</p>
             <span class="post-card-meta">11 August 2026 &middot; 7 min read</span>
             <span class="post-card-more">Read more &rarr;</span>
           </a>
           <a class="post-card" href="/blog/printing-cost-lagos">
-            <span class="post-card-tag">Guide</span>
+            <span class="post-card-img" style="background-image:url('/images/branding.jpg')"></span><span class="post-card-tag">Guide</span>
             <h2>How Much Does Printing Cost in Lagos? A 2026 Price Guide</h2>
             <p>A plain-English guide to printing costs in Lagos in 2026 — business cards, flyers, banners and t-shirts, what changes the price, and how to avoid being overcharged.</p>
             <span class="post-card-meta">6 August 2026 &middot; 7 min read</span>
             <span class="post-card-more">Read more &rarr;</span>
           </a>
           <a class="post-card" href="/blog/roll-up-banner-prices-lagos">
-            <span class="post-card-tag">Guide</span>
+            <span class="post-card-img" style="background-image:url('/images/banner-prints.jpg')"></span><span class="post-card-tag">Guide</span>
             <h2>Roll-Up Banner Prices in Lagos: What You Should Actually Pay</h2>
             <p>What roll-up banners really cost in Lagos, what separates a cheap stand from a good one, and the sizing and design mistakes that ruin banners.</p>
             <span class="post-card-meta">6 August 2026 &middot; 6 min read</span>
             <span class="post-card-more">Read more &rarr;</span>
           </a>
           <a class="post-card" href="/blog/business-card-paper-guide">
-            <span class="post-card-tag">Guide</span>
+            <span class="post-card-img" style="background-image:url('/images/paper-cards.jpg')"></span><span class="post-card-tag">Guide</span>
             <h2>Business Card Paper Guide: GSM, Matte vs Gloss, and Lamination</h2>
             <p>Which paper weight and finish to choose for business cards — what gsm means, matte versus gloss, when lamination is worth it, and what each choice signals.</p>
             <span class="post-card-meta">6 August 2026 &middot; 6 min read</span>
