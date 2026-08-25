@@ -214,3 +214,95 @@ window.onload = function() {
   });
 
 };
+// ── Stat counters + staggered card reveals ──────────────
+(function () {
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Count a number up from 0 to its final value
+  function countUp(el, finalText) {
+    // pull the number out, keep whatever wraps it ("500+", "5,000+", "48hr", "100%")
+    var match = finalText.match(/[\d,]+/);
+    if (!match) return;
+
+    var target = parseInt(match[0].replace(/,/g, ""), 10);
+    if (isNaN(target) || target === 0) return;
+
+    var prefix = finalText.slice(0, match.index);
+    var suffix = finalText.slice(match.index + match[0].length);
+    var hasComma = match[0].indexOf(",") !== -1;
+    var duration = 1100;
+    var start = null;
+
+    function frame(now) {
+      if (!start) start = now;
+      var progress = Math.min((now - start) / duration, 1);
+      // ease-out cubic — fast start, gentle settle
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var value = Math.round(target * eased);
+      var shown = hasComma ? value.toLocaleString("en-US") : String(value);
+      el.textContent = prefix + shown + suffix;
+      if (progress < 1) requestAnimationFrame(frame);
+    }
+
+    el.textContent = prefix + "0" + suffix;
+    requestAnimationFrame(frame);
+  }
+
+  var counters = document.querySelectorAll(".about-stat strong, .about-big-number");
+  if (counters.length && !reduced) {
+    var counterObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        countUp(el, el.textContent.trim());
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(function (el) { counterObserver.observe(el); });
+  }
+
+  // Staggered card reveals
+  var cards = document.querySelectorAll(
+    ".work-grid .work-card, .events-grid .event-card, .reviews-grid .review-card, .blog-grid .blog-card, .pricing-grid .pricing-card"
+  );
+
+  if (cards.length) {
+    if (reduced) {
+      cards.forEach(function (c) { c.classList.add("in"); });
+    } else {
+      var cardObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("in");
+          cardObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+      cards.forEach(function (c) { cardObserver.observe(c); });
+    }
+  }
+
+  // Blog cards are injected after load — catch them once they exist
+  var blogGrid = document.getElementById("blogGrid");
+  if (blogGrid && !reduced) {
+    var blogWatcher = new MutationObserver(function () {
+      var newCards = blogGrid.querySelectorAll(".blog-card:not(.in)");
+      if (!newCards.length) return;
+      var o = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("in");
+          o.unobserve(entry.target);
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+      newCards.forEach(function (c) { o.observe(c); });
+    });
+    blogWatcher.observe(blogGrid, { childList: true });
+  } else if (blogGrid && reduced) {
+    var mo = new MutationObserver(function () {
+      blogGrid.querySelectorAll(".blog-card").forEach(function (c) { c.classList.add("in"); });
+    });
+    mo.observe(blogGrid, { childList: true });
+  }
+})();

@@ -2600,3 +2600,267 @@ summary:focus:not(:focus-visible) {
     animation: none !important;
   }
 }
+/* ═══════════════════════════════════════════════════════
+   MOTION — ADDITIONS
+   Stat counters, staggered reveals, FAQ expand,
+   scroll-aware nav, form field focus.
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Stat counters ──────────────────────────────────── */
+.about-stat strong {
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  min-width: 3ch;
+}
+
+.about-big-number {
+  font-variant-numeric: tabular-nums;
+  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Staggered reveals ──────────────────────────────── */
+.work-grid .work-card,
+.events-grid .event-card,
+.reviews-grid .review-card,
+.blog-grid .blog-card,
+.pricing-grid .pricing-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color var(--ease-out),
+    box-shadow var(--ease-out);
+}
+
+.work-grid .work-card.in,
+.events-grid .event-card.in,
+.reviews-grid .review-card.in,
+.blog-grid .blog-card.in,
+.pricing-grid .pricing-card.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* stagger by position — 60ms apart reads as a wave, not a queue */
+.work-grid .work-card:nth-child(1),
+.events-grid .event-card:nth-child(1),
+.reviews-grid .review-card:nth-child(1),
+.blog-grid .blog-card:nth-child(1),
+.pricing-grid .pricing-card:nth-child(1) { transition-delay: 0ms; }
+
+.work-grid .work-card:nth-child(2),
+.events-grid .event-card:nth-child(2),
+.reviews-grid .review-card:nth-child(2),
+.blog-grid .blog-card:nth-child(2),
+.pricing-grid .pricing-card:nth-child(2) { transition-delay: 60ms; }
+
+.work-grid .work-card:nth-child(3),
+.events-grid .event-card:nth-child(3),
+.reviews-grid .review-card:nth-child(3),
+.blog-grid .blog-card:nth-child(3),
+.pricing-grid .pricing-card:nth-child(3) { transition-delay: 120ms; }
+
+.work-grid .work-card:nth-child(4),
+.events-grid .event-card:nth-child(4),
+.reviews-grid .review-card:nth-child(4),
+.blog-grid .blog-card:nth-child(4),
+.pricing-grid .pricing-card:nth-child(4) { transition-delay: 180ms; }
+
+.work-grid .work-card:nth-child(5),
+.events-grid .event-card:nth-child(5),
+.reviews-grid .review-card:nth-child(5),
+.blog-grid .blog-card:nth-child(5) { transition-delay: 240ms; }
+
+.work-grid .work-card:nth-child(6),
+.events-grid .event-card:nth-child(6),
+.reviews-grid .review-card:nth-child(6),
+.blog-grid .blog-card:nth-child(6) { transition-delay: 300ms; }
+
+.reviews-grid .review-card:nth-child(7) { transition-delay: 360ms; }
+.reviews-grid .review-card:nth-child(8) { transition-delay: 420ms; }
+
+/* once revealed, hover should respond instantly — drop the delay */
+.work-card.in:hover,
+.event-card.in:hover,
+.review-card.in:hover,
+.blog-card.in:hover,
+.pricing-card.in:hover {
+  transition-delay: 0ms;
+}
+
+/* ── FAQ expand ─────────────────────────────────────── */
+.faq-answer,
+.faq-item > p {
+  overflow: hidden;
+}
+
+.faq-item[open] .faq-answer,
+.faq-item[open] > p {
+  animation: faqOpen 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes faqOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Scroll-aware header ───────────────────────────── */
+#header {
+  transition:
+    background-color 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#header.scrolled {
+  background: rgba(8, 8, 8, 0.97);
+  border-bottom-color: rgba(201, 168, 76, 0.28);
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.45);
+}
+
+#header .logo img {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: left center;
+}
+
+#header.scrolled .logo img {
+  transform: scale(0.9);
+}
+
+/* ── Form field focus ──────────────────────────────── */
+.form-group {
+  position: relative;
+}
+
+.form-group label {
+  transition:
+    color var(--ease-out-quick),
+    transform var(--ease-out-quick);
+  transform-origin: left center;
+}
+
+.form-group:focus-within label {
+  color: var(--gold);
+  transform: translateY(-1px);
+}
+
+/* ── Reduced motion ────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .work-grid .work-card,
+  .events-grid .event-card,
+  .reviews-grid .review-card,
+  .blog-grid .blog-card,
+  .pricing-grid .pricing-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition-delay: 0ms !important;
+  }
+
+  .faq-item[open] .faq-answer,
+  .faq-item[open] > p {
+    animation: none !important;
+  }
+
+  #header.scrolled .logo img {
+    transform: none;
+  }
+}
+// ── Stat counters + staggered card reveals ──────────────
+(function () {
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Count a number up from 0 to its final value
+  function countUp(el, finalText) {
+    // pull the number out, keep whatever wraps it ("500+", "5,000+", "48hr", "100%")
+    var match = finalText.match(/[\d,]+/);
+    if (!match) return;
+
+    var target = parseInt(match[0].replace(/,/g, ""), 10);
+    if (isNaN(target) || target === 0) return;
+
+    var prefix = finalText.slice(0, match.index);
+    var suffix = finalText.slice(match.index + match[0].length);
+    var hasComma = match[0].indexOf(",") !== -1;
+    var duration = 1100;
+    var start = null;
+
+    function frame(now) {
+      if (!start) start = now;
+      var progress = Math.min((now - start) / duration, 1);
+      // ease-out cubic — fast start, gentle settle
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var value = Math.round(target * eased);
+      var shown = hasComma ? value.toLocaleString("en-US") : String(value);
+      el.textContent = prefix + shown + suffix;
+      if (progress < 1) requestAnimationFrame(frame);
+    }
+
+    el.textContent = prefix + "0" + suffix;
+    requestAnimationFrame(frame);
+  }
+
+  var counters = document.querySelectorAll(".about-stat strong, .about-big-number");
+  if (counters.length && !reduced) {
+    var counterObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        countUp(el, el.textContent.trim());
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(function (el) { counterObserver.observe(el); });
+  }
+
+  // Staggered card reveals
+  var cards = document.querySelectorAll(
+    ".work-grid .work-card, .events-grid .event-card, .reviews-grid .review-card, .blog-grid .blog-card, .pricing-grid .pricing-card"
+  );
+
+  if (cards.length) {
+    if (reduced) {
+      cards.forEach(function (c) { c.classList.add("in"); });
+    } else {
+      var cardObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("in");
+          cardObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+      cards.forEach(function (c) { cardObserver.observe(c); });
+    }
+  }
+
+  // Blog cards are injected after load — catch them once they exist
+  var blogGrid = document.getElementById("blogGrid");
+  if (blogGrid && !reduced) {
+    var blogWatcher = new MutationObserver(function () {
+      var newCards = blogGrid.querySelectorAll(".blog-card:not(.in)");
+      if (!newCards.length) return;
+      var o = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("in");
+          o.unobserve(entry.target);
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+      newCards.forEach(function (c) { o.observe(c); });
+    });
+    blogWatcher.observe(blogGrid, { childList: true });
+  } else if (blogGrid && reduced) {
+    var mo = new MutationObserver(function () {
+      blogGrid.querySelectorAll(".blog-card").forEach(function (c) { c.classList.add("in"); });
+    });
+    mo.observe(blogGrid, { childList: true });
+  }
+})();
