@@ -203,7 +203,7 @@ window.onload = function() {
       budget: budgetEl ? budgetEl.value.trim() : "Not specified",
       message: detailsEl ? detailsEl.value.trim() : "None"
     }).then(function() {
-      if (msgEl) { msgEl.textContent = "Message sent! We will be in touch within 24 hours."; msgEl.className = "form-message success"; }
+      if (msgEl) { msgEl.textContent = "Message sent! We will be in touch within 2 hours during business hours."; msgEl.className = "form-message success"; }
       form.reset();
     }).catch(function(err) {
       if (msgEl) { msgEl.textContent = "Failed to send. Please try WhatsApp instead."; msgEl.className = "form-message error"; }
