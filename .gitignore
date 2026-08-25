@@ -1,1 +1,6 @@
 node_modules
+# local tooling
+.claude/
+.impeccable/
+skills-lock.json
+PRODUCT.md
