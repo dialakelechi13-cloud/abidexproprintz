@@ -2413,3 +2413,190 @@ ul { list-style: none; }
     padding: 0;
   }
 }
+/* ═══════════════════════════════════════════════════════
+   MOTION & INTERACTION POLISH
+   Principles: entrances use ease-out so movement starts
+   immediately; UI response stays under 300ms; decorative
+   motion may run longer. Nothing animates layout properties.
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+  /* snappy — buttons, links, small UI response */
+  --ease-out-quick: 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  /* standard — cards, hovers, most interface motion */
+  --ease-out: 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  /* entrances — reveals, panels */
+  --ease-enter: 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Buttons: immediate response, real press feedback ── */
+.btn,
+.nav-links a,
+.service-link,
+.blog-read-more,
+.footer-links a,
+.footer-wa {
+  transition:
+    background-color var(--ease-out-quick),
+    border-color var(--ease-out-quick),
+    color var(--ease-out-quick),
+    transform var(--ease-out-quick),
+    box-shadow var(--ease-out);
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.985);
+  transition-duration: 80ms;
+}
+
+.whatsapp-btn:active,
+.floating-wa:active {
+  transform: scale(0.94);
+  transition-duration: 80ms;
+}
+
+/* ── Cards: lift should feel light, not laboured ── */
+.service-card,
+.work-card,
+.event-card,
+.pricing-card,
+.review-card,
+.process-step,
+.blog-card,
+.about-stat,
+.contact-detail {
+  transition:
+    transform var(--ease-out),
+    box-shadow var(--ease-out),
+    border-color var(--ease-out),
+    background-color var(--ease-out);
+}
+
+/* image zoom is decorative — slower is fine, but ease-out reads better */
+.work-card:hover .work-img,
+.event-card:hover .event-img {
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Scroll reveals: shorter distance, quicker settle ── */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--ease-enter),
+    transform var(--ease-enter);
+  will-change: opacity, transform;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* ── Form fields: focus should feel instant ── */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  transition:
+    border-color var(--ease-out-quick),
+    background-color var(--ease-out-quick),
+    box-shadow var(--ease-out-quick);
+}
+
+/* submit button while sending */
+.btn-submit:disabled {
+  opacity: 0.72;
+  cursor: wait;
+}
+
+/* form result message arrives rather than appearing */
+.form-message:not(:empty) {
+  animation: msgIn 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── FAQ: the plus should turn, not snap ── */
+.faq-item summary::after {
+  transition: transform var(--ease-out), color var(--ease-out-quick);
+}
+
+.faq-item summary {
+  transition: color var(--ease-out-quick);
+}
+
+/* ── Mobile menu: quicker in, and it should feel decisive ── */
+@media (max-width: 768px) {
+  .nav-links {
+    transition:
+      transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 280ms;
+  }
+
+  .nav-dropdown-menu a:active,
+  .nav-links > li > a:active {
+    background: rgba(201, 168, 76, 0.1);
+    transition-duration: 60ms;
+  }
+}
+
+/* ── Hamburger: cleaner cross ── */
+.hamburger span {
+  transition:
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 140ms linear;
+}
+
+/* ── Keyboard focus: currently missing entirely ── */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* mouse users shouldn't see the ring */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+summary:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Respect reduced-motion: previously unhandled ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .fade-in-up {
+    opacity: 1;
+    transform: none;
+  }
+
+  .marquee-track,
+  .logo-track,
+  .hero-grid-overlay,
+  .floating-wa,
+  .service-card .shimmer {
+    animation: none !important;
+  }
+
+  .hero-headline .line {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+}
